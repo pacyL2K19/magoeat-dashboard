@@ -6,7 +6,8 @@ const navigationStyles = {
         height : '100vh',
         boxSizing : 'border-box',
         border : '1px solid #eee',
-        overflowY : '10vh'
+        overflowY : 'auto',
+        paddingTop : '10vh'
     }
 }
 
@@ -71,7 +72,7 @@ const links = [
             },
             {
                 name : 'Settings',
-                key : 'key1',
+                key : 'key5',
                 url : '/',
                 iconProps : {
                     iconName : 'Settings',

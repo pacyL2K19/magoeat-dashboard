@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+import 'office-ui-fabric-react/dist/css/fabric.css';
 import './App.css';
 
+import Navigation from './componenets/Navigation';
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className = 'ms-Grid' dir = 'ltr'>  
+          <div className='ms-Grid-row'>
+            <div className = 'ms-Grid-coln ms-sm1 ms-xl1'>
+              <Navigation />
+            </div>
+            <div className = 'main-element ms-Grid-col ms-sm11 ms-xl11'>
+
+            </div>
+            <div className = 'ms-Grid-row'>
+
+            </div>
+          </div>
+        </div>
+    );
 }
 
 export default App;
