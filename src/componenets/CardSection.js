@@ -75,12 +75,12 @@ const cards = [
         icon : 'EatDrink',
         percentage : '4.5',
     },
-    {
-        title : 'PROFITS',
-        amount : '$10,0004',
-        icon : 'BankSolid',
-        percentage : '7.1',
-    },
+    // {
+    //     title : 'PROFITS',
+    //     amount : '$10,0004',
+    //     icon : 'BankSolid',
+    //     percentage : '7.1',
+    // },
 ];
 
 const CardsSection = () => {
