@@ -7,6 +7,7 @@ import {
     Card
 } from '@uifabric/react-cards';
 import 'office-ui-fabric-react/dist/css/fabric.css';
+import cards from './helpers/cards'
 
 const container = {
     display : 'flex',
@@ -54,3 +55,33 @@ const styles = {
         }
     }
 };
+
+const CardsSection = () => {
+    initializeIcons();
+    return (
+      <div style={container}>
+        {cards.map((card) => (
+          <div className="s-Grid-col ms-sm3 ms-xl3">
+            <Card styles={styles.cardStyles}>
+              <Card.Section>
+                <Card.Item>
+                  <i style={icon} className={`ms-Icon ms-Icon--${card.icon}`} aria-hidden="true"></i>
+                  <Text styles={styles.header}>{card.title}</Text>
+                </Card.Item>
+                <Card.Item>
+                  <Text styles={styles.amount}>{card.amount}</Text>
+                </Card.Item>
+                <Card.Item>
+                  <Text styles={styles.percentage}>
+                    {card.percentage} %
+                  </Text>
+                </Card.Item>
+              </Card.Section>
+            </Card>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  export default CardsSection;

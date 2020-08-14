@@ -3,6 +3,7 @@ import 'office-ui-fabric-react/dist/css/fabric.css';
 import './App.css';
 
 import Navigation from './componenets/Navigation';
+import CardSection from './componenets/CardSection'
 
 function App() {
     return (
@@ -11,8 +12,8 @@ function App() {
             <div className = 'ms-Grid-coln ms-sm1 ms-xl1'>
               <Navigation />
             </div>
-            <div className = 'main-element ms-Grid-col ms-sm11 ms-xl11'>
-
+            <div className = 'main-element ms-Grid-coln ms-sm11 ms-xl11'>
+              <CardSection />
             </div>
             <div className = 'ms-Grid-row'>
 
