@@ -9,10 +9,10 @@ function App() {
     return (
         <div className = 'ms-Grid' dir = 'ltr'>  
           <div className='ms-Grid-row'>
-            <div className = 'ms-Grid-coln ms-sm1 ms-xl1'>
+            <div className = 'ms-Grid-col ms-sm1 ms-xl1'>
               <Navigation />
             </div>
-            <div className = 'main-element ms-Grid-coln ms-sm11 ms-xl11'>
+            <div className = 'main-element ms-Grid-col ms-sm11 ms-xl11'>
               <CardSection />
             </div>
             <div className = 'ms-Grid-row'>
