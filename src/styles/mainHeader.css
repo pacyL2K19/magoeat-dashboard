@@ -1,0 +1,13 @@
+.root {
+    height:  70px;
+    background-color: '#ffeedd';
+    flex-direction: row;
+}
+.root img {
+    height: 50px;
+    width:  50px;
+    border-radius: 25;
+    box-shadow: blue;
+    margin-left: 20px;
+    align-self: flex-start;
+}
