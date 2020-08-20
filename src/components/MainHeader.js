@@ -5,10 +5,11 @@ import logo from '../assets/logo2.png'
 
 const styles = {
     root : {
-        backgroundColor : '#fff116',
-        flex:  1,
+        display : 'flex',
+        backgroundColor : '#fffccc',
         flexDirection : 'row',
-        padding : 10
+        padding : 10,
+        width : '100%'
     },
     logo : {
         flex : 1,
