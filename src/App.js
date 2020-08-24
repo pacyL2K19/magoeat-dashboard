@@ -3,8 +3,9 @@ import 'office-ui-fabric-react/dist/css/fabric.css';
 import './App.css';
 
 import Navigation from './components/Navigation';
-import CardSection from './components/CardSection';
+// import CardSection from './components/CardSection';
 import MainHeader from './components/MainHeader';
+import ConnectedUser from './components/ConnectedUser';
 
 function App() {
   const styles = {
@@ -17,10 +18,12 @@ function App() {
     },
     nav : {
       width : '300px',
+      display : 'flex',
     },
     main : {
       backgroundColor : '#efefef',
-      display : 'flex'
+      display : 'flex',
+      flexDirection : 'column'
     }
   }
     return (
@@ -33,6 +36,8 @@ function App() {
                  * The navigation component 
                  */
               }
+              <ConnectedUser /> 
+              <Navigation /> 
             </div>
             <div style = {styles.main}>
               {

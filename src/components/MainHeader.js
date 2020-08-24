@@ -9,7 +9,7 @@ const styles = {
         backgroundColor : '#fffccc',
         flexDirection : 'row',
         padding : 10,
-        width : '100%'
+        // width : '100%'
     },
     logo : {
         flex : 1,

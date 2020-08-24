@@ -52,7 +52,7 @@ export default class Navigation extends React.Component {
             display : 'flex'
         }
         return (
-            <div style= {styles.root}>
+            <div className = 'card' style= {styles.root}>
                 <Menu model = {this.items}/>
             </div>
         )
