@@ -1,54 +1,21 @@
+import 'react-perfect-scrollbar/dist/css/styles.css';
 import React from 'react';
-import 'office-ui-fabric-react/dist/css/fabric.css';
-import './App.css';
+import { useRoutes } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core';
+import GlobalStyles from 'src/components/GlobalStyles';
+import 'src/mixins/chartjs';
+import theme from 'src/theme';
+import routes from 'src/routes';
 
-import Navigation from './components/Navigation';
-// import CardSection from './components/CardSection';
-import MainHeader from './components/MainHeader';
-import ConnectedUser from './components/ConnectedUser';
+const App = () => {
+  const routing = useRoutes(routes);
 
-function App() {
-  const styles = {
-    root : {
-
-    },
-    body : {
-      display : 'flex',
-      flexDirection : 'row',
-    },
-    nav : {
-      width : '300px',
-      display : 'flex',
-    },
-    main : {
-      backgroundColor : '#efefef',
-      display : 'flex',
-      flexDirection : 'column'
-    }
-  }
-    return (
-        <div className = 'ms-Grid' dir = 'ltr'>  
-          <MainHeader />
-          <div style = {styles.body}>
-            <div style = {styles.nav}>
-              {
-                /**
-                 * The navigation component 
-                 */
-              }
-              <ConnectedUser /> 
-              <Navigation /> 
-            </div>
-            <div style = {styles.main}>
-              {
-                /**
-                 * The main component, depending on the selected item refering to the nav component
-                 */
-              }
-            </div>
-          </div>
-        </div>
-    );
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      {routing}
+    </ThemeProvider>
+  );
+};
 
 export default App;
