@@ -12,9 +12,9 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import FacebookIcon from 'src/icons/Facebook';
-import GoogleIcon from 'src/icons/Google';
-import Page from 'src/components/Page';
+import FacebookIcon from '../../icons/Facebook';
+import GoogleIcon from '../../icons/Google';
+import Page from '../../components/Page';
 
 const useStyles = makeStyles((theme) => ({
   root: {
