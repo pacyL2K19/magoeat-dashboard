@@ -25,10 +25,10 @@ import {
 import NavItem from './NavItem';
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
-};
+  avatar: '/static/images/avatars/Me.jpeg.png', // to retrieve from the backend
+  jobTitle: 'CTO | FullStack Software Eng',
+  name: 'Pacifique Linjanja'
+}; // to retrieve from the backend
 
 const items = [
   {
@@ -44,7 +44,7 @@ const items = [
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Products'
+    title: 'Restaurants'
   },
   {
     href: '/app/account',
@@ -66,11 +66,11 @@ const items = [
     icon: UserPlusIcon,
     title: 'Register'
   },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
-  }
+  // {
+  //   href: '/404',
+  //   icon: AlertCircleIcon,
+  //   title: 'Error'
+  // }
 ];
 
 const useStyles = makeStyles(() => ({
