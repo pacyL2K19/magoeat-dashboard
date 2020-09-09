@@ -7,11 +7,10 @@ import {
 import Page from '../../../components/Page';
 import Budget from './Budget';
 import LatestOrders from './LatestOrders';
-import LatestProducts from './LatestProducts';
-import Sales from './Sales';
 import TotalCustomers from './TotalCustomers';
+import LatestRestaurants from './LatestRestaurants';
+import LatestMenus from './LatestMenus';
 import TotalProfit from './TotalProfit';
-import TrafficByDevice from './TrafficByDevice';
 import TotalRestaurants from './TotalRestaurants'
 
 const useStyles = makeStyles((theme) => ({
@@ -88,7 +87,7 @@ const Dashboard = () => {
             xl={3}
             xs={12}
           >
-            <TrafficByDevice />
+            <LatestRestaurants />
           </Grid>
           <Grid
             item
@@ -97,7 +96,7 @@ const Dashboard = () => {
             xl={3}
             xs={12}
           >
-            <LatestProducts />
+            <LatestMenus />
           </Grid>
           <Grid
             item
