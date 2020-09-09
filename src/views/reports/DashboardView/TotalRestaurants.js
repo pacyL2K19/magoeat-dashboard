@@ -12,7 +12,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import RestaurantIcon from '@material-ui/icons/Restaurant'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TotalCustomers = ({ className, ...rest }) => {
+const TotalRestaurants = ({ className, ...rest }) => {
   const classes = useStyles();
 
-  const [numberOfCustomers, setNumberOfCustomers] = useState('1000');
+  const [numberOfRestaurants, setnumberOfRestaurants] = useState('12');
   useEffect (() => {
     //the request to the API to get number of customers
   }, [])
@@ -56,18 +56,18 @@ const TotalCustomers = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              TOTAL CUSTOMERS
+              TOTAL RESTAURANTS
             </Typography>
             <Typography
               color="textPrimary"
               variant="h3"
             >
-              {numberOfCustomers}
+              {numberOfRestaurants}
             </Typography>
           </Grid>
           <Grid item>
-            <Avatar className={classes.avatar}>
-              <PeopleIcon />
+            <Avatar className={classes.avatar} style = {{backgroundColor : '#000000'}}>
+              <RestaurantIcon />
             </Avatar>
           </Grid>
         </Grid>
@@ -81,7 +81,7 @@ const TotalCustomers = ({ className, ...rest }) => {
             className={classes.differenceValue}
             variant="body2"
           >
-            16%
+            50%
           </Typography>
           <Typography
             color="textSecondary"
@@ -95,8 +95,8 @@ const TotalCustomers = ({ className, ...rest }) => {
   );
 };
 
-TotalCustomers.propTypes = {
+TotalRestaurants.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalCustomers;
+export default TotalRestaurants;

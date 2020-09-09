@@ -9,10 +9,10 @@ import Budget from './Budget';
 import LatestOrders from './LatestOrders';
 import LatestProducts from './LatestProducts';
 import Sales from './Sales';
-import TasksProgress from './TasksProgress';
 import TotalCustomers from './TotalCustomers';
 import TotalProfit from './TotalProfit';
 import TrafficByDevice from './TrafficByDevice';
+import TotalRestaurants from './TotalRestaurants'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,7 +61,7 @@ const Dashboard = () => {
             xl={3}
             xs={12}
           >
-            <TasksProgress />
+            <TotalRestaurants />
           </Grid>
           <Grid
             item
@@ -72,7 +72,7 @@ const Dashboard = () => {
           >
             <TotalProfit />
           </Grid>
-          <Grid
+          {/* <Grid
             item
             lg={8}
             md={12}
@@ -80,7 +80,7 @@ const Dashboard = () => {
             xs={12}
           >
             <Sales />
-          </Grid>
+          </Grid> */}
           <Grid
             item
             lg={4}
