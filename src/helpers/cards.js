@@ -1,12 +1,12 @@
 const cards = [
     {
-        title : 'TOTAL AMOUNT',
+        title : 'BUDGET',
         amount : '$10,000',
         icon : 'Money',
         percentage : '3.3',
     },
     {
-        title : 'TOTAL USERS',
+        title : 'TOTAL CUSTOMERS',
         amount : '10,000,000',
         icon : 'People',
         percentage : '2.3',

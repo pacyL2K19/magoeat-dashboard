@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
@@ -34,6 +34,20 @@ const useStyles = makeStyles((theme) => ({
 
 const Budget = ({ className, ...rest }) => {
   const classes = useStyles();
+  const [ amount, setAmount ] = useState('2000');
+  const [ gains, setGains ] = useState('11'); // to retrieve from database
+
+  useEffect(() => {
+     fetch('/budget', {
+       method : 'GET',
+     })
+      .then((response) => response.json()) // to make sure the response is formated in json
+      .then((resJson) => {
+        setAmount(resJson.amount)
+        setGains(resJson.gains)
+      })
+      .catch(error => console.log(error))
+  }, [])
 
   return (
     <Card
@@ -58,7 +72,7 @@ const Budget = ({ className, ...rest }) => {
               color="textPrimary"
               variant="h3"
             >
-              $24,000
+              ${amount}
             </Typography>
           </Grid>
           <Grid item>
@@ -77,7 +91,7 @@ const Budget = ({ className, ...rest }) => {
             className={classes.differenceValue}
             variant="body2"
           >
-            12%
+            {gains}%
           </Typography>
           <Typography
             color="textSecondary"
