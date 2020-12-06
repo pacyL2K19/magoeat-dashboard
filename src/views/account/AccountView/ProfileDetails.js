@@ -13,6 +13,8 @@ import {
   makeStyles
 } from '@material-ui/core';
 
+// this state has to be change with the backend connection
+
 const states = [
   {
     value : 'nord-kivu',
