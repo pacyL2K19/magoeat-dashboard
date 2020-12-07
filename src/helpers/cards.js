@@ -6,13 +6,13 @@ const cards = [
         percentage : '3.3',
     },
     {
-        title : 'TOTAL CUSTOMERS',
+        title : 'CUSTOMERS',
         amount : '10,000,000',
         icon : 'People',
         percentage : '2.3',
     },
     {
-        title : 'TOTAL RESTAURANTS',
+        title : 'RESTAURANTS',
         amount : '13',
         icon : 'EatDrink',
         percentage : '4.5',
