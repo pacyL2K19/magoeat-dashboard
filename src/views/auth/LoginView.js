@@ -24,11 +24,23 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3)
   }
 }));
+const staticUrl = "http://localhost:3000/api/"
 
 const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-
+  const loginApi = () => {
+    fetch(staticUrl+'auth/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringfy({
+        
+      })
+    })
+  }
   return (
     <Page
       className={classes.root}
@@ -43,7 +55,7 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
+              email: 'email@some.com',
               password: 'Password123'
             }}
             validationSchema={Yup.object().shape({
@@ -51,6 +63,8 @@ const LoginView = () => {
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={() => {
+              // Call to the api 
+              
               navigate('/app/dashboard', { replace: true });
             }}
           >
