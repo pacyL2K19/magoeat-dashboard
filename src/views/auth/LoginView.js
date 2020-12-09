@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const staticUrl = "http://localhost:3000/api/"
 
 const LoginView = () => {
-  const [username, setUsername] = useState('')
+  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const classes = useStyles();
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const LoginView = () => {
         'Content-type': 'application/json',
       },
       body: JSON.stringfy({
-        username,
+        phone,
         password
       })
     })
@@ -67,8 +67,8 @@ const LoginView = () => {
             })}
             onSubmit={() => {
               // Call to the api 
-              
-              navigate('/app/dashboard', { replace: true });
+              loginApi();
+              // navigate('/app/dashboard', { replace: true });
             }}
           >
             {({
@@ -150,11 +150,12 @@ const LoginView = () => {
                   helperText={touched.email && errors.email}
                   label="Email Address"
                   margin="normal"
-                  name="email"
+                  placeholder = "Put your phone number here"
+                  name="phone"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  type="email"
-                  value={values.email}
+                  type="phone"
+                  value={email}
                   variant="outlined"
                 />
                 <TextField
