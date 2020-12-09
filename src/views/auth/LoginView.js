@@ -31,6 +31,12 @@ const LoginView = () => {
   const [password, setPassword] = useState('')
   const classes = useStyles();
   const navigate = useNavigate();
+  const handlePassChange = (text) => {
+    setPassword(text);
+  }
+  const handlePhoneChange = (text) => {
+    setPhone(text);
+  }
   const loginApi = () => {
     fetch(staticUrl+'auth/login', {
       method: 'POST',
@@ -57,10 +63,10 @@ const LoginView = () => {
       >
         <Container maxWidth="sm">
           <Formik
-            initialValues={{
-              email: 'email@some.com',
-              password: 'Password123'
-            }}
+            // initialValues={{
+            //   email: 'email@some.com',
+            //   password: 'Password123'
+            // }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
@@ -153,9 +159,9 @@ const LoginView = () => {
                   placeholder = "Put your phone number here"
                   name="phone"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange={handlePhoneChange}
                   type="phone"
-                  value={email}
+                  value={phone}
                   variant="outlined"
                 />
                 <TextField
@@ -166,9 +172,9 @@ const LoginView = () => {
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange={handlePassChange}
                   type="password"
-                  value={values.password}
+                  value={password}
                   variant="outlined"
                 />
                 <Box my={2}>
