@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import Alert from '@material-ui/lab/Alert';
 import { Formik } from 'formik';
 import {
   Box,
@@ -22,24 +23,57 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
-  }
+  },
+  rootMore: {
+    width: '40%',
+    marginLeft: '30%',
+    '& > * + *': {
+      marginTop: theme.spacing(3),
+    },
+  },
 }));
 const staticUrl = "http://localhost:3000/api/"
 
 const LoginView = () => {
+  const values = {
+    phone: "",
+    password: ""
+  }
   const classes = useStyles();
   const navigate = useNavigate();
-  const loginApi = () => {
-    fetch(staticUrl+'auth/login', {
+  const [errorMessage, setErrorMessage] = useState('');
+  const warningShow = () => {
+    if (errorMessage !== '') {
+      return (
+        <div className={classes.rootMore}>
+          <Alert severity="error">This is an error alert — check it out!</Alert>
+        </div>
+      )
+    }
+  }
+  const loginApi = (url) => {
+    fetch(url+'auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-type': 'application/json',
       },
       body: JSON.stringfy({
-        
+        phone: values.phone,
+        password: values.password
       })
     })
+      .then(res => res.json())
+      .then(resJson => {
+        if(resJson.success && !resJson.errorMessage) {
+          // success go to the next page
+          navigate('/app/dashboard', { replace: true, phone: resJson.phone, mail: resJson.mail, token: resJson.token });
+        } else {
+          // failed : Have to display the errorMessage
+          setErrorMessage(resJson.errorMessage)
+        }
+      })
+      .catch()
   }
   return (
     <Page
@@ -55,8 +89,7 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'email@some.com',
-              password: 'Password123'
+              values
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
@@ -64,8 +97,7 @@ const LoginView = () => {
             })}
             onSubmit={() => {
               // Call to the api 
-              
-              navigate('/app/dashboard', { replace: true });
+              loginApi(staticUrl)
             }}
           >
             {({
@@ -145,13 +177,14 @@ const LoginView = () => {
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Email Address"
+                  label="Phone number"
                   margin="normal"
-                  name="email"
+                  name="phone"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  type="email"
-                  value={values.email}
+                  type="phone"
+                  placeholder="Put your phone number"
+                  value={values.phone}
                   variant="outlined"
                 />
                 <TextField
@@ -164,6 +197,7 @@ const LoginView = () => {
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="password"
+                  placeholder=""
                   value={values.password}
                   variant="outlined"
                 />
@@ -197,6 +231,14 @@ const LoginView = () => {
             )}
           </Formik>
         </Container>
+
+        {
+          warningShow
+        }
+        
+        {/* <div className={classes.rootMore}>
+          <Alert severity="error">This is an error alert — check it out!</Alert>
+        </div> */}
       </Box>
     </Page>
   );
