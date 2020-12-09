@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
 const staticUrl = "http://localhost:3000/api/"
 
 const LoginView = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const classes = useStyles();
   const navigate = useNavigate();
   const loginApi = () => {
@@ -37,7 +39,8 @@ const LoginView = () => {
         'Content-type': 'application/json',
       },
       body: JSON.stringfy({
-        
+        username,
+        password
       })
     })
   }
