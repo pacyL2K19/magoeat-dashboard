@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -27,16 +27,8 @@ const useStyles = makeStyles((theme) => ({
 const staticUrl = "http://localhost:3000/api/"
 
 const LoginView = () => {
-  const [phone, setPhone] = useState('')
-  const [password, setPassword] = useState('')
   const classes = useStyles();
   const navigate = useNavigate();
-  const handlePassChange = (text) => {
-    setPassword(text);
-  }
-  const handlePhoneChange = (text) => {
-    setPhone(text);
-  }
   const loginApi = () => {
     fetch(staticUrl+'auth/login', {
       method: 'POST',
@@ -45,8 +37,7 @@ const LoginView = () => {
         'Content-type': 'application/json',
       },
       body: JSON.stringfy({
-        phone,
-        password
+        
       })
     })
   }
@@ -63,18 +54,18 @@ const LoginView = () => {
       >
         <Container maxWidth="sm">
           <Formik
-            // initialValues={{
-            //   email: 'email@some.com',
-            //   password: 'Password123'
-            // }}
+            initialValues={{
+              email: 'email@some.com',
+              password: 'Password123'
+            }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={() => {
               // Call to the api 
-              loginApi();
-              // navigate('/app/dashboard', { replace: true });
+              
+              navigate('/app/dashboard', { replace: true });
             }}
           >
             {({
@@ -156,12 +147,11 @@ const LoginView = () => {
                   helperText={touched.email && errors.email}
                   label="Email Address"
                   margin="normal"
-                  placeholder = "Put your phone number here"
-                  name="phone"
+                  name="email"
                   onBlur={handleBlur}
-                  onChange={handlePhoneChange}
-                  type="phone"
-                  value={phone}
+                  onChange={handleChange}
+                  type="email"
+                  value={values.email}
                   variant="outlined"
                 />
                 <TextField
@@ -172,9 +162,9 @@ const LoginView = () => {
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
-                  onChange={handlePassChange}
+                  onChange={handleChange}
                   type="password"
-                  value={password}
+                  value={values.password}
                   variant="outlined"
                 />
                 <Box my={2}>
