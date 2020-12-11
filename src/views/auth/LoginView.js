@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const staticUrl = "http://localhost:3000/api/"
+const staticUrl = "http://localhost:5000/api/"
 
 const LoginView = () => {
   const values = {
@@ -51,8 +51,9 @@ const LoginView = () => {
       )
     }
   }
-  const loginApi = (url) => {
-    fetch(url+'auth/login', {
+  const loginApi = () => {
+    console.log('One');
+    fetch(staticUrl+'auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -69,11 +70,13 @@ const LoginView = () => {
           // success go to the next page
           navigate('/app/dashboard', { replace: true, phone: resJson.phone, mail: resJson.mail, token: resJson.token });
         } else {
-          // failed : Have to display the errorMessage
+          // failed : Have to display the errorMessage 
           setErrorMessage(resJson.errorMessage)
         }
       })
-      .catch()
+      .catch(err => {
+        setErrorMessage(err)
+      })
   }
   return (
     <Page
@@ -92,12 +95,13 @@ const LoginView = () => {
               values
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+              phone: Yup.string().max(10),
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={() => {
               // Call to the api 
-              loginApi(staticUrl)
+              loginApi()
+              // navigate('/app/dashboard', { replace: true });
             }}
           >
             {({
