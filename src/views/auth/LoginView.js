@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
 import Alert from '@material-ui/lab/Alert';
 import { Formik } from 'formik';
 import {
@@ -95,10 +94,6 @@ const LoginView = () => {
             initialValues={
               values
             }
-            // validationSchema={Yup.object().shape({
-            //   phone: Yup.string().max(10),
-            //   password: Yup.string().required('Password is required')
-            // })}
             onSubmit={() => {
               // Call to the api 
               loginApi()
@@ -107,11 +102,8 @@ const LoginView = () => {
             {({
               errors,
               handleBlur,
-              // handleChange,
               handleSubmit,
-              // isSubmitting,
               touched,
-              values
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box mb={3}>
@@ -178,14 +170,11 @@ const LoginView = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  // error={Boolean(touched.email && errors.email)}
                   fullWidth
-                  // helperText={touched.email && errors.email}
                   label="Phone number"
                   margin="normal"
                   name="phone"
                   onBlur={handleBlur}
-                  // onChange={handleChange}
                   onChange={(e) => setPhone(e.target.value)}
                   type="phone"
                   placeholder="Put your phone number"
@@ -193,14 +182,12 @@ const LoginView = () => {
                   variant="outlined"
                 />
                 <TextField
-                  // error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
                   label="Password"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
-                  // onChange={handleChange}
                   onChange = {(e) => setPassword(e.target.value)}
                   type="password"
                   placeholder=""
@@ -210,7 +197,6 @@ const LoginView = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    // disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
@@ -241,10 +227,6 @@ const LoginView = () => {
         {
           warningShow()
         }
-        
-        {/* <div className={classes.rootMore}>
-          <Alert severity="error">This is an error alert — check it out!</Alert>
-        </div> */}
       </Box>
     </Page>
   );
