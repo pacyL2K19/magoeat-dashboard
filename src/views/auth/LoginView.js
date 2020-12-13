@@ -46,32 +46,31 @@ const LoginView = () => {
     if (errorMessage !== '') {
       return (
         <div className={classes.rootMore}>
-          <Alert severity="error">This is an error alert — check it out!</Alert>
+          <Alert severity="error">{errorMessage}</Alert>
         </div>
       )
     }
   }
   const loginApi = () => {
-    console.log('One');
+    console.log(values)
     fetch(staticUrl+'auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-type': 'application/json',
       },
-      body: JSON.stringfy({
+      body: JSON.stringify({
         phone: values.phone,
         password: values.password
       })
     })
-      .then(res => res.json())
-      .then(resJson => {
-        if(resJson.success && !resJson.errorMessage) {
-          // success go to the next page
-          navigate('/app/dashboard', { replace: true, phone: resJson.phone, mail: resJson.mail, token: resJson.token });
+      .then((res) => res.json())
+      .then((resJson) => {
+        console.log(resJson)
+        if (resJson.success) {
+          navigate('/app/dashboard', { replace: true });
         } else {
-          // failed : Have to display the errorMessage 
-          setErrorMessage(resJson.errorMessage)
+          setErrorMessage(resJson.errorMessage);
         }
       })
       .catch(err => {
@@ -101,7 +100,6 @@ const LoginView = () => {
             onSubmit={() => {
               // Call to the api 
               loginApi()
-              // navigate('/app/dashboard', { replace: true });
             }}
           >
             {({
@@ -109,7 +107,7 @@ const LoginView = () => {
               handleBlur,
               handleChange,
               handleSubmit,
-              isSubmitting,
+              // isSubmitting,
               touched,
               values
             }) => (
@@ -208,7 +206,7 @@ const LoginView = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    // disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
@@ -237,7 +235,7 @@ const LoginView = () => {
         </Container>
 
         {
-          warningShow
+          warningShow()
         }
         
         {/* <div className={classes.rootMore}>
