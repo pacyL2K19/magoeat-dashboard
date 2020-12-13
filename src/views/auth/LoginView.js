@@ -35,9 +35,11 @@ const useStyles = makeStyles((theme) => ({
 const staticUrl = "http://localhost:5000/api/"
 
 const LoginView = () => {
+  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
   const values = {
-    phone: "",
-    password: ""
+    phone: '',
+    password: ''
   }
   const classes = useStyles();
   const navigate = useNavigate();
@@ -52,7 +54,7 @@ const LoginView = () => {
     }
   }
   const loginApi = () => {
-    console.log(values)
+    // console.log(values)
     fetch(staticUrl+'auth/login', {
       method: 'POST',
       headers: {
@@ -60,8 +62,8 @@ const LoginView = () => {
         'Content-type': 'application/json',
       },
       body: JSON.stringify({
-        phone: values.phone,
-        password: values.password
+        phone: phone,
+        password: password
       })
     })
       .then((res) => res.json())
@@ -90,13 +92,13 @@ const LoginView = () => {
       >
         <Container maxWidth="sm">
           <Formik
-            initialValues={{
+            initialValues={
               values
-            }}
-            validationSchema={Yup.object().shape({
-              phone: Yup.string().max(10),
-              password: Yup.string().max(255).required('Password is required')
-            })}
+            }
+            // validationSchema={Yup.object().shape({
+            //   phone: Yup.string().max(10),
+            //   password: Yup.string().required('Password is required')
+            // })}
             onSubmit={() => {
               // Call to the api 
               loginApi()
@@ -105,7 +107,7 @@ const LoginView = () => {
             {({
               errors,
               handleBlur,
-              handleChange,
+              // handleChange,
               handleSubmit,
               // isSubmitting,
               touched,
@@ -176,31 +178,33 @@ const LoginView = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
+                  // error={Boolean(touched.email && errors.email)}
                   fullWidth
-                  helperText={touched.email && errors.email}
+                  // helperText={touched.email && errors.email}
                   label="Phone number"
                   margin="normal"
                   name="phone"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  // onChange={handleChange}
+                  onChange={(e) => setPhone(e.target.value)}
                   type="phone"
                   placeholder="Put your phone number"
-                  value={values.phone}
+                  value={phone}
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.password && errors.password)}
+                  // error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
                   label="Password"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  // onChange={handleChange}
+                  onChange = {(e) => setPassword(e.target.value)}
                   type="password"
                   placeholder=""
-                  value={values.password}
+                  value={password}
                   variant="outlined"
                 />
                 <Box my={2}>
