@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
 import Alert from '@material-ui/lab/Alert';
 import { Formik } from 'formik';
 import {
@@ -32,12 +31,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const staticUrl = "http://localhost:3000/api/"
+const staticUrl = "http://localhost:5000/api/"
 
 const LoginView = () => {
+  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
   const values = {
-    phone: "",
-    password: ""
+    phone: '',
+    password: ''
   }
   const classes = useStyles();
   const navigate = useNavigate();
@@ -46,34 +47,36 @@ const LoginView = () => {
     if (errorMessage !== '') {
       return (
         <div className={classes.rootMore}>
-          <Alert severity="error">This is an error alert — check it out!</Alert>
+          <Alert severity="error">{errorMessage}</Alert>
         </div>
       )
     }
   }
-  const loginApi = (url) => {
-    fetch(url+'auth/login', {
+  const loginApi = () => {
+    // console.log(values)
+    fetch(staticUrl+'auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-type': 'application/json',
       },
-      body: JSON.stringfy({
-        phone: values.phone,
-        password: values.password
+      body: JSON.stringify({
+        phone: phone,
+        password: password
       })
     })
-      .then(res => res.json())
-      .then(resJson => {
-        if(resJson.success && !resJson.errorMessage) {
-          // success go to the next page
-          navigate('/app/dashboard', { replace: true, phone: resJson.phone, mail: resJson.mail, token: resJson.token });
+      .then((res) => res.json())
+      .then((resJson) => {
+        console.log(resJson)
+        if (resJson.success) {
+          navigate('/app/dashboard', { replace: true });
         } else {
-          // failed : Have to display the errorMessage
-          setErrorMessage(resJson.errorMessage)
+          setErrorMessage(resJson.errorMessage);
         }
       })
-      .catch()
+      .catch(err => {
+        setErrorMessage(err)
+      })
   }
   return (
     <Page
@@ -88,26 +91,19 @@ const LoginView = () => {
       >
         <Container maxWidth="sm">
           <Formik
-            initialValues={{
+            initialValues={
               values
-            }}
-            validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
-            })}
+            }
             onSubmit={() => {
               // Call to the api 
-              loginApi(staticUrl)
+              loginApi()
             }}
           >
             {({
               errors,
               handleBlur,
-              handleChange,
               handleSubmit,
-              isSubmitting,
               touched,
-              values
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box mb={3}>
@@ -174,37 +170,33 @@ const LoginView = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
                   fullWidth
-                  helperText={touched.email && errors.email}
                   label="Phone number"
                   margin="normal"
                   name="phone"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange={(e) => setPhone(e.target.value)}
                   type="phone"
                   placeholder="Put your phone number"
-                  value={values.phone}
+                  value={phone}
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
                   label="Password"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange = {(e) => setPassword(e.target.value)}
                   type="password"
                   placeholder=""
-                  value={values.password}
+                  value={password}
                   variant="outlined"
                 />
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
@@ -233,12 +225,8 @@ const LoginView = () => {
         </Container>
 
         {
-          warningShow
+          warningShow()
         }
-        
-        {/* <div className={classes.rootMore}>
-          <Alert severity="error">This is an error alert — check it out!</Alert>
-        </div> */}
       </Box>
     </Page>
   );
