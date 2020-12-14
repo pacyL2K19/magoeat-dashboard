@@ -35,10 +35,11 @@ const useStyles = makeStyles((theme) => ({
 const TotalCustomers = ({ className, ...rest }) => {
   const classes = useStyles();
 
-  const [numberOfCustomers, setNumberOfCustomers] = useState('1000');
+  const [numberOfCustomers, setNumberOfCustomers] = useState('0');
   useEffect (() => {
     //the request to the API to get number of customers
   }, [])
+  const [growth, setGrowth] = useState(0.0)
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -56,7 +57,7 @@ const TotalCustomers = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              TOTAL CUSTOMERS
+              CUSTOMERS
             </Typography>
             <Typography
               color="textPrimary"
@@ -81,7 +82,7 @@ const TotalCustomers = ({ className, ...rest }) => {
             className={classes.differenceValue}
             variant="body2"
           >
-            16%
+            {growth}%
           </Typography>
           <Typography
             color="textSecondary"

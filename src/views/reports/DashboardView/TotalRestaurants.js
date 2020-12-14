@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
 const TotalRestaurants = ({ className, ...rest }) => {
   const classes = useStyles();
 
-  const [numberOfRestaurants, setnumberOfRestaurants] = useState('12');
+  const [numberOfRestaurants, setnumberOfRestaurants] = useState(0.0);
+  const [growth, setGrowth] = useState(0.0)
   useEffect (() => {
     //the request to the API to get number of customers
   }, [])
@@ -56,7 +57,7 @@ const TotalRestaurants = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              TOTAL RESTAURANTS
+              RESTAURANTS
             </Typography>
             <Typography
               color="textPrimary"
@@ -81,7 +82,7 @@ const TotalRestaurants = ({ className, ...rest }) => {
             className={classes.differenceValue}
             variant="body2"
           >
-            50%
+            {growth}%
           </Typography>
           <Typography
             color="textSecondary"
