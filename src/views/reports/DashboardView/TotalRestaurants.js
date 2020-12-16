@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import RestaurantIcon from '@material-ui/icons/Restaurant'
+import { reject } from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,11 +35,31 @@ const useStyles = makeStyles((theme) => ({
 
 const TotalRestaurants = ({ className, ...rest }) => {
   const classes = useStyles();
-
+  const staticUrl = 'http://localhost:5000/api/restaurants/';
   const [numberOfRestaurants, setnumberOfRestaurants] = useState(0.0);
   const [growth, setGrowth] = useState(0.0)
   useEffect (() => {
     //the request to the API to get number of customers
+    fetch(staticUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+      }
+    })
+      .then(response => response.json())
+      .then(resJson => {
+        console.log(resJson)
+        if (!resJson.restaus) {
+          setGrowth(0.0);
+          setnumberOfRestaurants(10)
+        } else {
+          setnumberOfRestaurants(resJson.restaus.length)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }, [])
   return (
     <Card

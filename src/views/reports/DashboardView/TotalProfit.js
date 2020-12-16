@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
@@ -25,7 +25,38 @@ const useStyles = makeStyles(() => ({
 
 const TotalProfit = ({ className, ...rest }) => {
   const classes = useStyles();
-
+  const staticUrl = 'http://localhost:5000/api/order/';
+  const [totalProfits, setTotalProfits] = useState(0.0)
+  useEffect (() => {
+    //the request to the API to get number of customers
+    fetch(staticUrl+'orders', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+      }
+    })
+      .then(response => response.json())
+      .then(resJson => {
+        // console.log(resJson)
+        if (!resJson.orders) {
+          setTotalProfits(0.0)
+        } else {
+          // let closedOrders = [];
+          let totProf = 0.0;
+          for (let order of resJson.orders) {
+            if (order.status === "CLOSED") {
+              totProf += ((order.price)*(order.charge))
+            }
+          }
+          setTotalProfits(totProf);
+          console.log(totProf)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }, [])
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -49,7 +80,7 @@ const TotalProfit = ({ className, ...rest }) => {
               color="textPrimary"
               variant="h3"
             >
-              $0,0
+              ${totalProfits}
             </Typography>
           </Grid>
           <Grid item>

@@ -67,7 +67,7 @@ const LoginView = () => {
     })
       .then((res) => res.json())
       .then((resJson) => {
-        console.log(resJson)
+        
         if (resJson.success) {
           navigate('/app/dashboard', { replace: true });
         } else {
