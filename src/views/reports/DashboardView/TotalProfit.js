@@ -42,15 +42,17 @@ const TotalProfit = ({ className, ...rest }) => {
         if (!resJson.orders) {
           setTotalProfits(0.0)
         } else {
-          // let closedOrders = [];
+          let closedOrders = [];
           let totProf = 0.0;
           for (let order of resJson.orders) {
             if (order.status === "CLOSED") {
-              totProf += ((order.price)*(order.charge))
+              closedOrders.push(order);
+              totProf += ((order.amount)*0.3);
             }
           }
-          setTotalProfits(totProf);
+          setTotalProfits(totProf.toFixed(3));
           console.log(totProf)
+          console.log(closedOrders)
         }
       })
       .catch(error => {
