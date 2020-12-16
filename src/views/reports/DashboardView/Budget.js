@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Budget = ({ className, ...rest }) => {
   const classes = useStyles();
-  const [ amount, setAmount ] = useState('2000');
-  const [ gains, setGains ] = useState('11'); // to retrieve from database
+  const [ amount, setAmount ] = useState('0.0');
+  const [ gains, setGains ] = useState('0.0'); // to retrieve from database
 
   useEffect(() => {
      fetch('/budget', {
