@@ -49,7 +49,6 @@ const TotalRestaurants = ({ className, ...rest }) => {
     })
       .then(response => response.json())
       .then(resJson => {
-        console.log(resJson)
         if (!resJson.restaus) {
           setGrowth(0.0);
           setnumberOfRestaurants(10)

@@ -38,7 +38,6 @@ const TotalProfit = ({ className, ...rest }) => {
     })
       .then(response => response.json())
       .then(resJson => {
-        // console.log(resJson)
         if (!resJson.orders) {
           setTotalProfits(0.0)
         } else {
@@ -51,8 +50,6 @@ const TotalProfit = ({ className, ...rest }) => {
             }
           }
           setTotalProfits(totProf.toFixed(3));
-          console.log(totProf)
-          console.log(closedOrders)
         }
       })
       .catch(error => {
