@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
@@ -64,8 +64,39 @@ const useStyles = makeStyles(({
 
 const LatestRestaurants = ({ className, ...rest }) => {
   const classes = useStyles();
-  const [products] = useState(data);
-
+  const [products, setProducts] = useState([]);
+  const staticUrl='http://localhost:5000/api/restaurants/';
+  useEffect(() => {
+    fetch(staticUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(resJson => {
+        let latestRest = [];
+        if (resJson.restaus) {
+          resJson.restaus.map(restau => {
+            let restToAdd = {
+              id: uuid(),
+              name: restau.label,
+              imageUrl: restau.imgUrl,
+              averageRate: restau.averageRating,
+              updatedAt: moment().subtract(9, 'hours')
+            }
+            latestRest.push(restToAdd);
+          })
+          setProducts(latestRest);
+        } else {
+          setProducts([]);
+        }
+      })
+      .catch(() => {
+        setProducts([]);
+      })
+  }, [])
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -92,6 +123,9 @@ const LatestRestaurants = ({ className, ...rest }) => {
             <ListItemText
               primary={product.name}
               secondary={`Updated ${product.updatedAt.fromNow()}`}
+            />
+            <ListItemText
+              secondary={`Rate ${product.averageRate}/5`}
             />
             <IconButton
               edge="end"

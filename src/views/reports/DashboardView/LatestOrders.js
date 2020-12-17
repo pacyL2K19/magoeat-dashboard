@@ -122,12 +122,12 @@ const LatestOrders = ({ className, ...rest }) => {
             }
             ordersToDisplay.push(ord);
           })
-          setOrders(ordersToDisplay);
+          setOrders(ordersToDisplay.reverse());
         } else {
           setOrders([])
         }
       })
-      .catch()
+      .catch(() => console.log('Something bad'))
   }, [])
   return (
     <Card
@@ -166,6 +166,9 @@ const LatestOrders = ({ className, ...rest }) => {
                 <TableCell>
                   Status
                 </TableCell>
+                <TableCell>
+                  Action
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -192,6 +195,9 @@ const LatestOrders = ({ className, ...rest }) => {
                       label={order.status}
                       size="small"
                     />
+                  </TableCell>
+                  <TableCell>
+                    Update Status
                   </TableCell>
                 </TableRow>
               ))}
