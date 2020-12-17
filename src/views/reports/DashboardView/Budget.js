@@ -34,19 +34,36 @@ const useStyles = makeStyles((theme) => ({
 
 const Budget = ({ className, ...rest }) => {
   const classes = useStyles();
-  const [ amount, setAmount ] = useState('0.0');
-  const [ gains, setGains ] = useState('0.0'); // to retrieve from database
-
+  const [ amount, setAmount ] = useState(0.0);
+  const [ gains, setGains ] = useState(0.0); // to retrieve from database
+  const staticUrl = 'http://localhost:5000/api/order/';
   useEffect(() => {
-     fetch('/budget', {
-       method : 'GET',
-     })
-      .then((response) => response.json()) // to make sure the response is formated in json
-      .then((resJson) => {
-        setAmount(resJson.amount)
-        setGains(resJson.gains)
+    fetch(staticUrl+'orders', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+      }
+    })
+      .then(response => response.json())
+      .then(resJson => {
+        if (!resJson.orders) {
+          setAmount(0.0)
+        } else {
+          let totProf = 0.0;
+          for (let order of resJson.orders) {
+            // if (order.status === "CLOSED") {
+            //   closedOrders.push(order);
+            //   totProf += ((order.amount)*0.3);
+            // }
+            totProf += order.amount
+          }
+          setAmount(totProf.toFixed(3));
+        }
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error)
+      })
   }, [])
 
   return (
