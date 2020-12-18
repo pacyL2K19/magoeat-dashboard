@@ -34,10 +34,26 @@ const useStyles = makeStyles((theme) => ({
 
 const TotalCustomers = ({ className, ...rest }) => {
   const classes = useStyles();
-
-  const [numberOfCustomers, setNumberOfCustomers] = useState('0');
+  const staticUrl = 'http://localhost:5000/api/auth/users';
+  const [numberOfCustomers, setNumberOfCustomers] = useState(0);
   useEffect (() => {
     //the request to the API to get number of customers
+    fetch(staticUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(reJson => {
+        if (reJson.users) {
+          setNumberOfCustomers(reJson.users.length);
+        } else {
+          setNumberOfCustomers(0);
+        }
+      })
+      .catch()
   }, [])
   const [growth, setGrowth] = useState(0.0)
   return (

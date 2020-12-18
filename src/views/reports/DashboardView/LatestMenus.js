@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
@@ -64,8 +64,27 @@ const useStyles = makeStyles(({
 
 const LatestMenus = ({ className, ...rest }) => {
   const classes = useStyles();
-  const [products] = useState(data);
+  const [products, setProducts] = useState(data);
+  // const staticUrl='http://localhost:5000/api/restaurants/';
+  // useEffect(() => {
+  //   fetch(staticUrl, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-type': 'application/json'
+  //     }
+  //   })
+  //     .then(res => res.json())
+  //     .then(resJson => {
+  //       let latestRest = [];
+  //       if (resJson.restaus) {
 
+  //       } else {
+  //         setProducts
+  //       }
+  //     })
+  //     .catch()
+  // }, [])
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -73,7 +92,7 @@ const LatestMenus = ({ className, ...rest }) => {
     >
       <CardHeader
         subtitle={`${products.length} in total`}
-        title="Latest Plats"
+        title="Latest Meals"
       />
       <Divider />
       <List>

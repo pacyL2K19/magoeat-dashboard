@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
@@ -22,6 +22,7 @@ import {
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
+// Need to retrieve data from the backend 
 const data = [
   {
     id: uuid(),
@@ -94,8 +95,40 @@ const useStyles = makeStyles(() => ({
 
 const LatestOrders = ({ className, ...rest }) => {
   const classes = useStyles();
-  const [orders] = useState(data);
-
+  const [orders, setOrders] = useState([]);
+  const staticUrl = 'http://localhost:5000/api/order/'
+  useEffect (() => {
+    fetch(staticUrl+'orders', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(resJson => {
+        if (resJson.orders) {
+          let ordersToDisplay = [];
+          resJson.orders.map(order => {
+            let ord = {
+              id: uuid(),
+              ref: order._id,
+              amount: order.amount,
+              customer: {
+                name: order.idUser
+              },
+              createdAt: order.date.toString(),
+              status: order.status
+            }
+            ordersToDisplay.push(ord);
+          })
+          setOrders(ordersToDisplay.reverse());
+        } else {
+          setOrders([])
+        }
+      })
+      .catch(() => console.log('Something bad'))
+  }, [])
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -104,7 +137,7 @@ const LatestOrders = ({ className, ...rest }) => {
       <CardHeader title="Latest Orders" />
       <Divider />
       <PerfectScrollbar>
-        <Box minWidth={800}>
+        <Box minWidth={900}>
           <Table>
             <TableHead>
               <TableRow>
@@ -112,7 +145,7 @@ const LatestOrders = ({ className, ...rest }) => {
                   Order Ref
                 </TableCell>
                 <TableCell>
-                  Customer
+                  Customer Id
                 </TableCell>
                 <TableCell sortDirection="desc">
                   <Tooltip
@@ -128,7 +161,13 @@ const LatestOrders = ({ className, ...rest }) => {
                   </Tooltip>
                 </TableCell>
                 <TableCell>
+                  Amount
+                </TableCell>
+                <TableCell>
                   Status
+                </TableCell>
+                <TableCell>
+                  Action
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -145,7 +184,10 @@ const LatestOrders = ({ className, ...rest }) => {
                     {order.customer.name}
                   </TableCell>
                   <TableCell>
-                    {moment(order.createdAt).format('DD/MM/YYYY')}
+                    {order.createdAt}
+                  </TableCell>
+                  <TableCell>
+                    {order.amount}
                   </TableCell>
                   <TableCell>
                     <Chip
@@ -153,6 +195,9 @@ const LatestOrders = ({ className, ...rest }) => {
                       label={order.status}
                       size="small"
                     />
+                  </TableCell>
+                  <TableCell>
+                    Update Status
                   </TableCell>
                 </TableRow>
               ))}
