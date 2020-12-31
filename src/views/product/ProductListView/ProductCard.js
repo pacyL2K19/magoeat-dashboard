@@ -39,13 +39,21 @@ const ProductCard = ({ className, product, ...rest }) => {
       <CardContent>
         <Box
           display="flex"
+          flexDirection= 'column'
           justifyContent="center"
           mb={3}
         >
-          <Avatar
-            alt="Product"
+          <h2 style={{textAlign: 'center', fontFamily: 'sans-serif'}}>{product.name}</h2>
+          <img
             src={product.media}
-            variant="square"
+            style={{
+              height: 100,
+              margin: 10,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: 10,
+              marginBottom: 10
+            }}
           />
         </Box>
         <Typography
@@ -85,7 +93,7 @@ const ProductCard = ({ className, product, ...rest }) => {
               display="inline"
               variant="body2"
             >
-              Updated 2hr ago
+              {product.createdAt}
             </Typography>
           </Grid>
           <Grid
@@ -101,9 +109,9 @@ const ProductCard = ({ className, product, ...rest }) => {
               display="inline"
               variant="body2"
             >
-              {product.totalDownloads}
+              {product.totalOrders}
               {' '}
-              Downloads
+              Orders
             </Typography>
           </Grid>
         </Grid>
