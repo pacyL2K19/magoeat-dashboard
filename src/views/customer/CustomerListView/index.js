@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Container,
@@ -20,8 +20,29 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomerListView = () => {
   const classes = useStyles();
-  const [customers] = useState(data);
-
+  const staticUrl = 'http://localhost:5000/api/auth/users';
+  const [customers, setCustomers] = useState(data);
+  useEffect(() => {
+    fetch(staticUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(resJson => {
+        const users = [];
+        if (resJson.users) {
+          setCustomers(resJson.users);
+        } else {
+          setCustomers(users)
+        }
+      })
+      .catch(err => {
+        alert(err+' Quelque chose ne va pas bien')
+      })
+  }, [])
   return (
     <Page
       className={classes.root}
