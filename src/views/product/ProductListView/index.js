@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
 import {
   Box,
   Container,
@@ -9,7 +10,7 @@ import { Pagination } from '@material-ui/lab';
 import Page from '../../../components/Page';
 import Toolbar from './Toolbar';
 import ProductCard from './ProductCard';
-import data from './data';
+// import data from '../../../helpers/data';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,9 +25,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProductList = () => {
+  const staticUrl='http://localhost:5000/api/restaurants/';
   const classes = useStyles();
-  const [products] = useState(data);
-
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    fetch(staticUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(resJson => {
+        let latestRest = [];
+        if (resJson.restaus) {
+          resJson.restaus.map(restau => {
+            let restToAdd = {
+              id: uuid(),
+              name: restau.label,
+              totalOrders: 1,
+              media: restau.imgUrl,
+              description: restau.description,
+              averageRate: restau.averageRating,
+              createdAt: restau.opensAt+" - "+restau.closeAt,
+              // updatedAt: moment().subtract(9, 'hours')
+            }
+            latestRest.push(restToAdd);
+          })
+          setProducts(latestRest);
+        } else {
+          setProducts([]);
+        }
+      })
+      .catch(() => {
+        setProducts([]);
+      })
+  }, [])
   return (
     <Page
       className={classes.root}

@@ -64,27 +64,29 @@ const useStyles = makeStyles(({
 
 const LatestMenus = ({ className, ...rest }) => {
   const classes = useStyles();
-  const [products, setProducts] = useState(data);
-  // const staticUrl='http://localhost:5000/api/restaurants/';
-  // useEffect(() => {
-  //   fetch(staticUrl, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-type': 'application/json'
-  //     }
-  //   })
-  //     .then(res => res.json())
-  //     .then(resJson => {
-  //       let latestRest = [];
-  //       if (resJson.restaus) {
-
-  //       } else {
-  //         setProducts
-  //       }
-  //     })
-  //     .catch()
-  // }, [])
+  const [products, setProducts] = useState([]);
+  const staticUrl='http://localhost:5000/api/repas/';
+  useEffect(() => {
+    fetch(staticUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(resJson => {
+        let latestMeal = [];
+        if (resJson.rep) {
+          setProducts(resJson.rep)
+        } else {
+          setProducts(latestMeal);
+        }
+      })
+      .catch(err => {
+        alert(`Une erreur s'est produite, veuillez reesayer`);
+      })
+  }, [])
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -105,12 +107,12 @@ const LatestMenus = ({ className, ...rest }) => {
               <img
                 alt="Product"
                 className={classes.image}
-                src={product.imageUrl}
+                src={product.imgUrl}
               />
             </ListItemAvatar>
             <ListItemText
-              primary={product.name}
-              secondary={`Updated ${product.updatedAt.fromNow()}`}
+              primary={product.label+' | Restaurant Id: '+product.idRestau.substring(0, 5)}
+              // secondary={`Updated ${product.updatedAt.fromNow()}`}
             />
             <IconButton
               edge="end"

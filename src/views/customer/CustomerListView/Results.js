@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import img from '../../../assets/profile.png';
 import {
   Avatar,
   Box,
@@ -105,9 +106,9 @@ const Results = ({ className, customers, ...rest }) => {
                 <TableCell>
                   Phone
                 </TableCell>
-                <TableCell>
+                {/* <TableCell>
                   Registration date
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -131,30 +132,30 @@ const Results = ({ className, customers, ...rest }) => {
                     >
                       <Avatar
                         className={classes.avatar}
-                        src={customer.avatarUrl}
+                        src={img}
                       >
-                        {getInitials(customer.name)}
+                        {getInitials(customer.username)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {customer.username}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {customer.mail}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {`${customer.adress}`}
                   </TableCell>
                   <TableCell>
                     {customer.phone}
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     {moment(customer.createdAt).format('DD/MM/YYYY')}
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
