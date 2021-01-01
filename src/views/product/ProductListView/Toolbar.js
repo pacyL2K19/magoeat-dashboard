@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { Dropdown } from 'semantic-ui-react'
 import {
   Box,
   Button,
@@ -9,17 +10,14 @@ import {
   TextField,
   InputAdornment,
   SvgIcon,
-  makeStyles
+  makeStyles,
+  Grid
 } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Search as SearchIcon } from 'react-feather';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import Buttons from './Buttons';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -43,29 +41,80 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-  }
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
 }));
 
 const Toolbar = ({ className, ...rest }) => {
+  const staticUrl = 'http://localhost:5000/api/auth/owners'
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('');
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleDateChange = (date) => {
-    // setSelectedDate(date);
-    console.log('Test')
-  };
-
+  const [address, setAddress] = React.useState('');
+  const [imgUrl, setImgUrl] = React.useState('');
+  const [restaurantName, setRestaurantName] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [owners, setOwners] = React.useState([]);
+  const [owner, setOwner] = React.useState('')
+  const [openTime, setOpenTime] = React.useState('07:30')
+  const [closeTime, setCloseTime] = React.useState('20:30')
+  // dropdown reseter
+  
+  useEffect(() => {
+    fetch(staticUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(resJson => {
+        const ownersL = []
+        resJson.owners.map(ow => {
+          let owx = {
+            key: ow._id,
+            text: ow.username,
+            value: ow._id,
+          }
+          ownersL.push(owx);
+        })
+        setOwners(ownersL);
+      })
+      .catch(err => {
+        alert(err);
+      })
+  }, [])
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const handleChangeName = (event) => {
+    setRestaurantName(event.target.value);
   };
-
+  const handleDropdownChange = (e, {value}) => {
+    setOwner(value);
+    console.log(value)
+  }
+  const handleSave = () => {
+    alert('Successfully saved');
+    setOpen(false);
+  }
+  const handleCancel = () => {
+    setOpen(false);
+  }
+  const restaurant = {
+      label: restaurantName,
+      adress: address,
+      description: description,
+      imgUrl,
+      ownerId: owner,
+      opensAt: openTime.toString(),
+      closeAt: closeTime.toString()
+  }
   return (
     <div
       className={clsx(classes.root, className)}
@@ -139,62 +188,89 @@ const Toolbar = ({ className, ...rest }) => {
                 id="outlined-multiline-flexible"
                 label="Restaurant Name"
                 rowsMax={4}
-                value={value}
-                onChange={handleChange}
+                value={restaurantName}
+                onChange={handleChangeName}
                 variant="outlined"
                 margin='normal'
                 size='small'
                 fullWidth
               />
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Owner userId"
-                rowsMax={4}
-                value={value}
-                onChange={handleChange}
-                variant="outlined"
-                margin='normal'
-                size='small'
-                fullWidth
+              <Dropdown 
+                placeholder='Select the owner' 
+                search
+                onChange = {handleDropdownChange}
+                selection
+                value={owner}
+                options={owners}
               />
               <TextField
                 id="outlined-multiline-flexible"
                 label="Image URL"
                 rowsMax={4}
-                value={value}
-                onChange={handleChange}
+                value={imgUrl}
+                margin='normal'
+                onChange={(event) => {setImgUrl(event.target.value)}}
                 variant="outlined"
                 margin='normal'
                 size='small'
                 fullWidth
               />
-              <KeyboardTimePicker
-                margin="normal"
-                id="time-picker"
-                label="Time picker"
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  'aria-label': 'change time',
-                }}
-              />
+              <div style={{margin: 10, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <TextField
+                  id="time"
+                  label="Opens at"
+                  type="time"
+                  defaultValue="07:30"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300, // 5 min
+                  }}
+                  onChange = {(e) => {setOpenTime(e.target.value)}}
+                  value={openTime}
+                />
+                <TextField
+                  id="time"
+                  label="Closes at"
+                  type="time"
+                  defaultValue="20:30"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300, // 5 min
+                  }}
+                  onChange = {(e) => {setCloseTime(e.target.value)}}
+                  value={closeTime}
+                />
+              </div>
               <TextField
                 id="outlined-textarea"
-                label="Multiline Placeholder"
-                placeholder="Placeholder"
+                label="Address"
+                placeholder="Put address"
                 multiline
                 variant="outlined"
                 size='small'
                 fullWidth
+                value={address}
+                onChange={(e) => {setAddress(e.target.value)}}
               />
               <TextField
                 id="outlined-multiline-static"
-                label="Multiline"
+                label="Add description"
                 multiline
-                rows={4}
-                defaultValue="Default Value"
+                rows={6}
+                margin='normal'
+                defaultValue=""
                 variant="outlined"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
+            <Buttons restaurant={restaurant} onCancel={handleClose} onSave={handleSave} />
           </form>
         </Fade>
       </Modal>

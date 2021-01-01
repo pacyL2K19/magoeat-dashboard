@@ -18,39 +18,7 @@ import {
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-
-const data = [
-  {
-    id: uuid(),
-    name: 'Havana',
-    imageUrl: '/static/images/products/havana.jpeg',
-    updatedAt: moment().subtract(2, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'La Liga',
-    imageUrl: '/static/images/products/liga.jpg',
-    updatedAt: moment().subtract(2, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'Les volcans',
-    imageUrl: '/static/images/products/volcan.jpeg',
-    updatedAt: moment().subtract(3, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'Lappa',
-    imageUrl: '/static/images/products/lappa.jpeg',
-    updatedAt: moment().subtract(5, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'Maghali',
-    imageUrl: '/static/images/products/product_5.png',
-    updatedAt: moment().subtract(9, 'hours')
-  }
-];
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(({
   root: {
@@ -88,7 +56,7 @@ const LatestRestaurants = ({ className, ...rest }) => {
             }
             latestRest.push(restToAdd);
           })
-          setProducts(latestRest);
+          setProducts(latestRest.reverse().slice(0, 5));
         } else {
           setProducts([]);
         }
@@ -148,7 +116,7 @@ const LatestRestaurants = ({ className, ...rest }) => {
           size="small"
           variant="text"
         >
-          View all
+          <a href="/app/products">View all</a>
         </Button>
       </Box>
     </Card>

@@ -1,4 +1,5 @@
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import 'semantic-ui-css/semantic.min.css'
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
