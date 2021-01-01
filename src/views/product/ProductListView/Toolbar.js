@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { Dropdown } from 'semantic-ui-react'
+// import {DropdownMultiple, Dropdown} from 'reactjs-dropdown-component';
 import {
   Box,
   Button,
@@ -9,17 +11,13 @@ import {
   TextField,
   InputAdornment,
   SvgIcon,
-  makeStyles
+  makeStyles,
+  Grid
 } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Search as SearchIcon } from 'react-feather';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -43,21 +41,47 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-  }
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
 }));
 
 const Toolbar = ({ className, ...rest }) => {
+  const staticUrl = 'http://localhost:5000/api/auth/owners'
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleDateChange = (date) => {
-    // setSelectedDate(date);
-    console.log('Test')
-  };
-
+  const [owners, setOwners] = React.useState([]);
+  // dropdown reseter
+  
+  useEffect(() => {
+    fetch(staticUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(resJson => {
+        const ownersL = []
+        resJson.owners.map(ow => {
+          let owx = {
+            key: ow._id,
+            text: ow.username,
+            value: ow.username,
+          }
+          ownersL.push(owx);
+        })
+        setOwners(ownersL);
+      })
+      .catch(err => {
+        alert(err);
+      })
+  }, [])
   const handleClose = () => {
     setOpen(false);
   };
@@ -65,7 +89,6 @@ const Toolbar = ({ className, ...rest }) => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-
   return (
     <div
       className={clsx(classes.root, className)}
@@ -146,7 +169,7 @@ const Toolbar = ({ className, ...rest }) => {
                 size='small'
                 fullWidth
               />
-              <TextField
+              {/* <TextField
                 id="outlined-multiline-flexible"
                 label="Owner userId"
                 rowsMax={4}
@@ -156,6 +179,12 @@ const Toolbar = ({ className, ...rest }) => {
                 margin='normal'
                 size='small'
                 fullWidth
+              /> */}
+              <Dropdown 
+                placeholder='State' 
+                search 
+                selection 
+                options={owners} 
               />
               <TextField
                 id="outlined-multiline-flexible"
@@ -168,15 +197,34 @@ const Toolbar = ({ className, ...rest }) => {
                 size='small'
                 fullWidth
               />
-              <KeyboardTimePicker
-                margin="normal"
-                id="time-picker"
-                label="Time picker"
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  'aria-label': 'change time',
-                }}
-              />
+              <div style={{margin: 10, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <TextField
+                  id="time"
+                  label="Opens at"
+                  type="time"
+                  defaultValue="07:30"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300, // 5 min
+                  }}
+                />
+                <TextField
+                  id="time"
+                  label="Closes at"
+                  type="time"
+                  defaultValue="20:30"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300, // 5 min
+                  }}
+                />
+              </div>
               <TextField
                 id="outlined-textarea"
                 label="Multiline Placeholder"
