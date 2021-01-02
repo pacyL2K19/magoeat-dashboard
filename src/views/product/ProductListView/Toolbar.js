@@ -10,8 +10,7 @@ import {
   TextField,
   InputAdornment,
   SvgIcon,
-  makeStyles,
-  Grid
+  makeStyles
 } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -97,7 +96,6 @@ const Toolbar = ({ className, ...rest }) => {
   };
   const handleDropdownChange = (e, {value}) => {
     setOwner(value);
-    console.log(value)
   }
   const handleSave = () => {
     alert('Successfully saved');

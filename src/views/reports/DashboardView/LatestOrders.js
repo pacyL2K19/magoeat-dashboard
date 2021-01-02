@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
@@ -21,70 +20,10 @@ import {
   makeStyles
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-
-// Need to retrieve data from the backend 
-const data = [
-  {
-    id: uuid(),
-    ref: 'CDD1049',
-    amount: 30.5,
-    customer: {
-      name: 'Ekaterina Tankova'
-    },
-    createdAt: 1555016400000,
-    status: 'pending'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1048',
-    amount: 25.1,
-    customer: {
-      name: 'Cao Yu'
-    },
-    createdAt: 1555016400000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1047',
-    amount: 10.99,
-    customer: {
-      name: 'Alexa Richardson'
-    },
-    createdAt: 1554930000000,
-    status: 'refunded'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1046',
-    amount: 96.43,
-    customer: {
-      name: 'Anje Keizer'
-    },
-    createdAt: 1554757200000,
-    status: 'pending'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1045',
-    amount: 32.54,
-    customer: {
-      name: 'Clarke Gillebert'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1044',
-    amount: 16.76,
-    customer: {
-      name: 'Adam Denisov'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  }
-];
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import { Dropdown } from 'semantic-ui-react'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -94,9 +33,36 @@ const useStyles = makeStyles(() => ({
 }));
 
 const LatestOrders = ({ className, ...rest }) => {
+  const data = [
+    {
+      key: 1,
+      text: "Placed",
+      value: "PLACED",
+    },
+    {
+      key: 2,
+      text: "Accepted",
+      value: "ACCEPTED",
+    },
+    {
+      key: 3,
+      text: "On the road",
+      value: "ON_THE_ROAD",
+    },
+    {
+      key: 4,
+      text: "Canceled",
+      value: "CANCELED",
+    },
+  ]
   const classes = useStyles();
   const [orders, setOrders] = useState([]);
-  const staticUrl = 'http://localhost:5000/api/order/'
+  const [open, setOpen] = React.useState(false);
+  const [status, setStatus] = React.useState('');
+  const staticUrl = 'http://localhost:5000/api/order/';
+  const handleDropdownChange = (e, {value}) => {
+    setStatus(value);
+  }
   useEffect (() => {
     fetch(staticUrl+'orders', {
       method: 'GET',
@@ -129,6 +95,12 @@ const LatestOrders = ({ className, ...rest }) => {
       })
       .catch(() => console.log('Something bad'))
   }, [])
+  const [orderId, setOrderId] = useState('');
+  // const handleUpdateStatus = () => {
+  //   fetch(staticUrl, {
+  //     method: 'POST'
+  //   })
+  // }
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -197,7 +169,9 @@ const LatestOrders = ({ className, ...rest }) => {
                     />
                   </TableCell>
                   <TableCell>
-                    Update Status
+                    <Button onClick={() => {setOpen(true); setOrderId(order.id)}} variant="contained" color="primary">
+                      Update Status
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -219,6 +193,44 @@ const LatestOrders = ({ className, ...rest }) => {
           View all
         </Button>
       </Box>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        style={{
+          width: '30%',
+          marginLeft: 'auto',
+          marginRight: 'auto'
+        }}
+        // onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open} style={{backgroundColor: 'white', padding: 30}}>
+          <form className={classes.root} noValidate autoComplete="off">
+            <h2 style={{fontFamily: 'sans-serif'}}>Update order status ID :</h2>
+            <p>{orderId}</p>
+            <div>
+              <Dropdown 
+                placeholder='Select the owner' 
+                search
+                onChange = {handleDropdownChange}
+                selection
+                value={status}
+                options={data}
+              />
+            </div>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Button color='primary' type='button'>Update</Button>
+              <Button color='primary' type='button' onClick={() => setOpen(false)}>Cancel</Button>
+            </div>
+          </form>
+        </Fade>
+      </Modal>
     </Card>
   );
 };
