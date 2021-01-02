@@ -77,7 +77,7 @@ const LatestOrders = ({ className, ...rest }) => {
           let ordersToDisplay = [];
           resJson.orders.map(order => {
             let ord = {
-              id: uuid(),
+              id: order._id,
               ref: order._id,
               amount: order.amount,
               customer: {
@@ -96,11 +96,31 @@ const LatestOrders = ({ className, ...rest }) => {
       .catch(() => console.log('Something bad'))
   }, [])
   const [orderId, setOrderId] = useState('');
-  // const handleUpdateStatus = () => {
-  //   fetch(staticUrl, {
-  //     method: 'POST'
-  //   })
-  // }
+  const handleUpdateStatus = () => {
+    // setOrderId
+    fetch(staticUrl+'update/'+orderId, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        status
+      })
+    })
+      .then(res => res.json())
+      .then(resJson => {
+        if (resJson.success) {
+          alert(resJson.message);
+          setOpen(false);
+        } else {
+          alert(resJson.message);
+        }
+      })
+      .catch(err => {
+        alert(err);
+      })
+  }
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -225,7 +245,7 @@ const LatestOrders = ({ className, ...rest }) => {
               />
             </div>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Button color='primary' type='button'>Update</Button>
+              <Button color='primary' type='button' onClick={handleUpdateStatus}>Update</Button>
               <Button color='primary' type='button' onClick={() => setOpen(false)}>Cancel</Button>
             </div>
           </form>
