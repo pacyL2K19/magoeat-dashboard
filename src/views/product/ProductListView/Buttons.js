@@ -1,14 +1,15 @@
-import React from 'react';
-import { Button } from 'semantic-ui-react'
+/* eslint-disable no-unused-vars */
+import React from "react";
+import { Button } from "semantic-ui-react";
 
 const Buttons = ({restaurant, onSave, onCancel}) => {
-    const staticUrl = 'http://localhost:5000/api/restaurants/create';
+    const staticUrl = "http://localhost:5000/api/restaurants/create";
     const createRest = () => {
         fetch(staticUrl, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json',
+                "Accept": "application/json",
+                "Content-type": "application/json",
             },
             body: JSON.stringify({
                 label: restaurant.label,
@@ -22,26 +23,26 @@ const Buttons = ({restaurant, onSave, onCancel}) => {
         })
             .then(res => res.json())
             .then(resJson => {
-                console.log(resJson)
+                console.log(resJson);
                 if (resJson.success) {
-                    alert('Successfully saved');
+                    alert("Successfully saved");
                     onCancel();
                 } else {
-                    alert(resJson.message || resJson.errorMessage )
-                    alert(resJson.error)
+                    alert(resJson.message || resJson.errorMessage );
+                    alert(resJson.error);
                 }
             })
             .catch(err => {
-                alert('Saved ...')
-            })
-    }
+                alert("Saved ...");
+            });
+    };
     return (
         <Button.Group>
             <Button onClick={onCancel}>Cancel</Button>
             <Button.Or />
             <Button positive onClick={createRest}>Save</Button>
         </Button.Group>
-    )
-}
+    );
+};
 
-export default Buttons
+export default Buttons;
