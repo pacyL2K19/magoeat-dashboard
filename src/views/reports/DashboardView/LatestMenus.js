@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
-import { staticUrl } from "../../../../config";
+import { staticUrl } from "../../../config";
 
 const data = [
     {

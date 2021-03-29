@@ -11,7 +11,7 @@ import { Pagination } from "@material-ui/lab";
 import Page from "../../../components/Page";
 import Toolbar from "./Toolbar";
 import ProductCard from "./ProductCard";
-import { staticUrl } from "../.././../../config";
+import { staticUrl } from "../../../config";
 // import data from '../../../helpers/data';
 
 const useStyles = makeStyles((theme) => ({

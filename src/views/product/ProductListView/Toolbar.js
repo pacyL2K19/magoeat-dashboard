@@ -17,7 +17,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { Search as SearchIcon } from "react-feather";
-import { staticUrl } from ".././../../../config";
+import { staticUrl } from "../../../config";
 import Buttons from "./Buttons";
 
 const useStyles = makeStyles((theme) => ({

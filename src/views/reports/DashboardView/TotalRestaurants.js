@@ -15,7 +15,7 @@ import {
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import RestaurantIcon from "@material-ui/icons/Restaurant";
 import { reject } from "lodash";
-import { staticUrl } from "../../../../config";
+import { staticUrl } from "../../../config";
 
 const useStyles = makeStyles((theme) => ({
     root: {

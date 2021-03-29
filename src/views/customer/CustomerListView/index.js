@@ -9,7 +9,7 @@ import Page from "../../../components/Page";
 import Results from "./Results";
 import Toolbar from "./Toolbar";
 import data from "./data";
-import { staticUrl } from "../../../../config";
+import { staticUrl } from "../../../config";
 
 const useStyles = makeStyles((theme) => ({
     root: {

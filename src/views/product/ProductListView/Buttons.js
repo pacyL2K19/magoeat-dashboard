@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Button } from "semantic-ui-react";
-import { staticUrl } from "../../../../config";
+import { staticUrl } from "../../../config";
 
 const Buttons = ({restaurant, onSave, onCancel}) => {
     const createRest = () => {

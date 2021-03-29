@@ -25,7 +25,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { Dropdown } from "semantic-ui-react";
-import { staticUrl } from "../../../../config"; 
+import { staticUrl } from "../../../config"; 
 
 const useStyles = makeStyles(() => ({
     root: {},
