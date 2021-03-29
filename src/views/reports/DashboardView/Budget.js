@@ -39,7 +39,7 @@ const Budget = ({ className, ...rest }) => {
     const [ amount, setAmount ] = useState(0.0);
     const [ gains, setGains ] = useState(0.0); // to retrieve from database
     useEffect(() => {
-        fetch(staticUrl`order/orders`, {
+        fetch(staticUrl+"order/orders", {
             method: "GET",
             headers: {
                 "Accept": "application/json",

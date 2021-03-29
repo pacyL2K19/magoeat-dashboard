@@ -64,7 +64,7 @@ const Toolbar = ({ className, ...rest }) => {
     // dropdown reseter
   
     useEffect(() => {
-        fetch(staticUrl `auth/owner`, {
+        fetch(staticUrl+"auth/owner", {
             method: "GET",
             headers: {
                 "Accept": "application/json",

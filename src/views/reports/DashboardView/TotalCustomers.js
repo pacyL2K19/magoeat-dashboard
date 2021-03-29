@@ -39,7 +39,7 @@ const TotalCustomers = ({ className, ...rest }) => {
     const [numberOfCustomers, setNumberOfCustomers] = useState(0);
     useEffect (() => {
     //the request to the API to get number of customers
-        fetch(staticUrl`auth/users/`, {
+        fetch(staticUrl+"auth/users/", {
             method: "GET",
             headers: {
                 "Accept": "application/json",

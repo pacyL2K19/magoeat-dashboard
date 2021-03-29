@@ -5,7 +5,7 @@ import { staticUrl } from "../../../config";
 
 const Buttons = ({restaurant, onSave, onCancel}) => {
     const createRest = () => {
-        fetch(staticUrl`restaurants/create`, {
+        fetch(staticUrl+"restaurants/create", {
             method: "POST",
             headers: {
                 "Accept": "application/json",

@@ -41,7 +41,7 @@ const TotalRestaurants = ({ className, ...rest }) => {
     const [growth, setGrowth] = useState(0.0);
     useEffect (() => {
     //the request to the API to get number of customers
-        fetch(staticUrl`restaurants`, {
+        fetch(staticUrl+"restaurants", {
             method: "GET",
             headers: {
                 "Accept": "application/json",

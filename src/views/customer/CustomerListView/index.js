@@ -24,7 +24,7 @@ const CustomerListView = () => {
     const classes = useStyles();
     const [customers, setCustomers] = useState(data);
     useEffect(() => {
-        fetch(staticUrl`auth/users`, {
+        fetch(staticUrl+"auth/users", {
             method: "GET",
             headers: {
                 "Accept": "application/json",

@@ -35,7 +35,7 @@ const LatestRestaurants = ({ className, ...rest }) => {
     const classes = useStyles();
     const [products, setProducts] = useState([]);
     useEffect(() => {
-        fetch(staticUrl`restaurants/`, {
+        fetch(staticUrl+"restaurants/", {
             method: "GET",
             headers: {
                 "Accept": "application/json",
