@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "semantic-ui-react";
 
 const Buttons = ({restaurant, onSave, onCancel}) => {
-    const staticUrl = "http://localhost:5000/api/restaurants/create";
+    const staticUrl = "http://localhost:8080/api/restaurants/create";
     const createRest = () => {
         fetch(staticUrl, {
             method: "POST",

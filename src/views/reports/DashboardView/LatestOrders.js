@@ -60,7 +60,7 @@ const LatestOrders = ({ className, ...rest }) => {
     const [orders, setOrders] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [status, setStatus] = React.useState("");
-    const staticUrl = "http://localhost:5000/api/order/";
+    const staticUrl = "http://localhost:8080/api/order/";
     const handleDropdownChange = (e, {value}) => {
         setStatus(value);
     };

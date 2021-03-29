@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
 
 const TotalProfit = ({ className, ...rest }) => {
     const classes = useStyles();
-    const staticUrl = "http://localhost:5000/api/order/";
+    const staticUrl = "http://localhost:8080/api/order/";
     const [totalProfits, setTotalProfits] = useState(0.0);
     useEffect (() => {
     //the request to the API to get number of customers

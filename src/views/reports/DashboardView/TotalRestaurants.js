@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TotalRestaurants = ({ className, ...rest }) => {
     const classes = useStyles();
-    const staticUrl = "http://localhost:5000/api/restaurants/";
+    const staticUrl = "http://localhost:8080/api/restaurants/";
     const [numberOfRestaurants, setnumberOfRestaurants] = useState(0.0);
     const [growth, setGrowth] = useState(0.0);
     useEffect (() => {

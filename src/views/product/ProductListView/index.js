@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProductList = () => {
-    const staticUrl="http://localhost:5000/api/restaurants/";
+    const staticUrl="http://localhost:8080/api/restaurants/";
     const classes = useStyles();
     const [products, setProducts] = useState([]);
     useEffect(() => {

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-const staticUrl = "http://localhost:5000/api/";
+const staticUrl = "http://localhost:8080/api/";
 
 const LoginView = () => {
     const [password, setPassword] = useState("");

@@ -33,7 +33,7 @@ const useStyles = makeStyles(({
 const LatestRestaurants = ({ className, ...rest }) => {
     const classes = useStyles();
     const [products, setProducts] = useState([]);
-    const staticUrl="http://localhost:5000/api/restaurants/";
+    const staticUrl="http://localhost:8080/api/restaurants/";
     useEffect(() => {
         fetch(staticUrl, {
             method: "GET",

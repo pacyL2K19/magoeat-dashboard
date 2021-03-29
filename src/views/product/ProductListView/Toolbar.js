@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Toolbar = ({ className, ...rest }) => {
-    const staticUrl = "http://localhost:5000/api/auth/owners";
+    const staticUrl = "http://localhost:8080/api/auth/owners";
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [address, setAddress] = React.useState("");

@@ -66,7 +66,7 @@ const useStyles = makeStyles(({
 const LatestMenus = ({ className, ...rest }) => {
     const classes = useStyles();
     const [products, setProducts] = useState([]);
-    const staticUrl="http://localhost:5000/api/repas/";
+    const staticUrl="http://localhost:8080/api/repas/";
     useEffect(() => {
         fetch(staticUrl, {
             method: "GET",

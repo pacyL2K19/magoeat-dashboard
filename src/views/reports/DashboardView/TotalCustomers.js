@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TotalCustomers = ({ className, ...rest }) => {
     const classes = useStyles();
-    const staticUrl = "http://localhost:5000/api/auth/users";
+    const staticUrl = "http://localhost:8080/api/auth/users";
     const [numberOfCustomers, setNumberOfCustomers] = useState(0);
     useEffect (() => {
     //the request to the API to get number of customers
