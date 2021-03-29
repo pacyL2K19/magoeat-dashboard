@@ -16,6 +16,7 @@ import {
 import FacebookIcon from "../../icons/Facebook";
 import GoogleIcon from "../../icons/Google";
 import Page from "../../components/Page";
+import { staticUrl } from "../../../config";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-const staticUrl = "http://localhost:8080/api/";
 
 const LoginView = () => {
     const [password, setPassword] = useState("");
