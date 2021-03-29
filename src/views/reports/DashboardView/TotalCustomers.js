@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import PeopleIcon from "@material-ui/icons/PeopleOutlined";
+import { staticUrl } from "../../../../config";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,11 +36,10 @@ const useStyles = makeStyles((theme) => ({
 
 const TotalCustomers = ({ className, ...rest }) => {
     const classes = useStyles();
-    const staticUrl = "http://localhost:8080/api/auth/users";
     const [numberOfCustomers, setNumberOfCustomers] = useState(0);
     useEffect (() => {
     //the request to the API to get number of customers
-        fetch(staticUrl, {
+        fetch(staticUrl`auth/users/`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",

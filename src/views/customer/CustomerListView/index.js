@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomerListView = () => {
     const classes = useStyles();
-    // const staticUrl = "http://localhost:8080/api/auth/users";
     const [customers, setCustomers] = useState(data);
     useEffect(() => {
         fetch(staticUrl`auth/users`, {

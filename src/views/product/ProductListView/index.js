@@ -11,6 +11,7 @@ import { Pagination } from "@material-ui/lab";
 import Page from "../../../components/Page";
 import Toolbar from "./Toolbar";
 import ProductCard from "./ProductCard";
+import { staticUrl } from "../.././../../config";
 // import data from '../../../helpers/data';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,11 +27,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProductList = () => {
-    const staticUrl="http://localhost:8080/api/restaurants/";
     const classes = useStyles();
     const [products, setProducts] = useState([]);
     useEffect(() => {
-        fetch(staticUrl, {
+        fetch(staticUrl`restaurants`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",

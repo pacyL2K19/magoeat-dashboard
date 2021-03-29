@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import MoneyIcon from "@material-ui/icons/Money";
+import { staticUrl } from "../../../../config";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,9 +38,8 @@ const Budget = ({ className, ...rest }) => {
     const classes = useStyles();
     const [ amount, setAmount ] = useState(0.0);
     const [ gains, setGains ] = useState(0.0); // to retrieve from database
-    const staticUrl = "http://localhost:8080/api/order/";
     useEffect(() => {
-        fetch(staticUrl+"orders", {
+        fetch(staticUrl`order/orders`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",

@@ -17,6 +17,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { Search as SearchIcon } from "react-feather";
+import { staticUrl } from ".././../../../config";
 import Buttons from "./Buttons";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Toolbar = ({ className, ...rest }) => {
-    const staticUrl = "http://localhost:8080/api/auth/owners";
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [address, setAddress] = React.useState("");
@@ -64,7 +64,7 @@ const Toolbar = ({ className, ...rest }) => {
     // dropdown reseter
   
     useEffect(() => {
-        fetch(staticUrl, {
+        fetch(staticUrl `auth/owner`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",

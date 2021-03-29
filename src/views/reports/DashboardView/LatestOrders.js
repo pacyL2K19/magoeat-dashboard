@@ -25,6 +25,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { Dropdown } from "semantic-ui-react";
+import { staticUrl } from "../../../../config"; 
 
 const useStyles = makeStyles(() => ({
     root: {},
@@ -60,7 +61,6 @@ const LatestOrders = ({ className, ...rest }) => {
     const [orders, setOrders] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [status, setStatus] = React.useState("");
-    const staticUrl = "http://localhost:8080/api/order/";
     const handleDropdownChange = (e, {value}) => {
         setStatus(value);
     };
@@ -99,7 +99,7 @@ const LatestOrders = ({ className, ...rest }) => {
     const [orderId, setOrderId] = useState("");
     const handleUpdateStatus = () => {
     // setOrderId
-        fetch(staticUrl+"update/"+orderId, {
+        fetch(staticUrl+"order/update/"+orderId, {
             method: "PUT",
             headers: {
                 "Accept": "application/json",

@@ -19,6 +19,7 @@ import {
 } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import { staticUrl } from "../../../../config";
 
 const useStyles = makeStyles(({
     root: {
@@ -33,9 +34,8 @@ const useStyles = makeStyles(({
 const LatestRestaurants = ({ className, ...rest }) => {
     const classes = useStyles();
     const [products, setProducts] = useState([]);
-    const staticUrl="http://localhost:8080/api/restaurants/";
     useEffect(() => {
-        fetch(staticUrl, {
+        fetch(staticUrl`restaurants/`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
