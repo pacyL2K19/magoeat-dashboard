@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
+import { Skeleton } from "@material-ui/lab";
 import {
     Avatar,
     Box,
@@ -37,8 +38,10 @@ const useStyles = makeStyles((theme) => ({
 const Budget = ({ className, ...rest }) => {
     const classes = useStyles();
     const [ amount, setAmount ] = useState(0.0);
+    const [isLoading, setIsloading] = useState(false);
     const [ gains, setGains ] = useState(0.0); // to retrieve from database
     useEffect(() => {
+        setIsloading(false);
         fetch(staticUrl+"order/orders", {
             method: "GET",
             headers: {
@@ -50,6 +53,7 @@ const Budget = ({ className, ...rest }) => {
             .then(resJson => {
                 if (!resJson.orders) {
                     setAmount(0.0);
+                    setIsloading(false);
                 } else {
                     let totProf = 0.0;
                     for (let order of resJson.orders) {
@@ -60,6 +64,7 @@ const Budget = ({ className, ...rest }) => {
                         totProf += order.amount;
                     }
                     setAmount(totProf.toFixed(3));
+                    setIsloading(false);
                 }
             })
             .catch(error => {
@@ -67,60 +72,68 @@ const Budget = ({ className, ...rest }) => {
             });
     }, []);
 
-    return (
-        <Card
-            className={clsx(classes.root, className)}
-            {...rest}
-        >
-            <CardContent>
-                <Grid
-                    container
-                    justify="space-between"
-                    spacing={3}
-                >
-                    <Grid item>
+    if (isLoading) {
+        return (
+            <div>
+                <Skeleton variant="rect" height={150} animation="wave" style={{borderRadius: 5}} />
+            </div>
+        );
+    } else {
+        return (
+            <Card
+                className={clsx(classes.root, className)}
+                {...rest}
+            >
+                <CardContent>
+                    <Grid
+                        container
+                        justify="space-between"
+                        spacing={3}
+                    >
+                        <Grid item>
+                            <Typography
+                                color="textSecondary"
+                                gutterBottom
+                                variant="h6"
+                            >
+                                BUDGET
+                            </Typography>
+                            <Typography
+                                color="textPrimary"
+                                variant="h3"
+                            >
+                                ${amount}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Avatar className={classes.avatar}>
+                                <MoneyIcon />
+                            </Avatar>
+                        </Grid>
+                    </Grid>
+                    <Box
+                        mt={2}
+                        display="flex"
+                        alignItems="center"
+                    >
+                        <ArrowDownwardIcon className={classes.differenceIcon} />
+                        <Typography
+                            className={classes.differenceValue}
+                            variant="body2"
+                        >
+                            {gains}%
+                        </Typography>
                         <Typography
                             color="textSecondary"
-                            gutterBottom
-                            variant="h6"
+                            variant="caption"
                         >
-              BUDGET
+                            Since last month
                         </Typography>
-                        <Typography
-                            color="textPrimary"
-                            variant="h3"
-                        >
-              ${amount}
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Avatar className={classes.avatar}>
-                            <MoneyIcon />
-                        </Avatar>
-                    </Grid>
-                </Grid>
-                <Box
-                    mt={2}
-                    display="flex"
-                    alignItems="center"
-                >
-                    <ArrowDownwardIcon className={classes.differenceIcon} />
-                    <Typography
-                        className={classes.differenceValue}
-                        variant="body2"
-                    >
-                        {gains}%
-                    </Typography>
-                    <Typography
-                        color="textSecondary"
-                        variant="caption"
-                    >
-            Since last month
-                    </Typography>
-                </Box>
-            </CardContent>
-        </Card>
-    );
+                    </Box>
+                </CardContent>
+            </Card>
+        );
+    }
 };
 
 Budget.propTypes = {
