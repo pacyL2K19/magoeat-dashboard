@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Button } from "semantic-ui-react";
+import { staticUrl } from "../../../config";
 
 const Buttons = ({restaurant, onSave, onCancel}) => {
-    const staticUrl = "http://localhost:5000/api/restaurants/create";
     const createRest = () => {
-        fetch(staticUrl, {
+        fetch(staticUrl+"restaurants/create", {
             method: "POST",
             headers: {
                 "Accept": "application/json",

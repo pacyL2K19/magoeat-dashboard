@@ -9,6 +9,7 @@ import Page from "../../../components/Page";
 import Results from "./Results";
 import Toolbar from "./Toolbar";
 import data from "./data";
+import { staticUrl } from "../../../config";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,10 +22,9 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomerListView = () => {
     const classes = useStyles();
-    const staticUrl = "http://localhost:5000/api/auth/users";
     const [customers, setCustomers] = useState(data);
     useEffect(() => {
-        fetch(staticUrl, {
+        fetch(staticUrl+"auth/users", {
             method: "GET",
             headers: {
                 "Accept": "application/json",

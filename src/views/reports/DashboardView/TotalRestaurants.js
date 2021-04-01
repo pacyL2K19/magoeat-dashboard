@@ -15,6 +15,7 @@ import {
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import RestaurantIcon from "@material-ui/icons/Restaurant";
 import { reject } from "lodash";
+import { staticUrl } from "../../../config";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,12 +37,11 @@ const useStyles = makeStyles((theme) => ({
 
 const TotalRestaurants = ({ className, ...rest }) => {
     const classes = useStyles();
-    const staticUrl = "http://localhost:5000/api/restaurants/";
     const [numberOfRestaurants, setnumberOfRestaurants] = useState(0.0);
     const [growth, setGrowth] = useState(0.0);
     useEffect (() => {
     //the request to the API to get number of customers
-        fetch(staticUrl, {
+        fetch(staticUrl+"restaurants", {
             method: "GET",
             headers: {
                 "Accept": "application/json",

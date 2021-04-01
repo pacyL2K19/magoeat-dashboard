@@ -12,6 +12,7 @@ import {
     colors
 } from "@material-ui/core";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import { staticUrl } from "../../../config";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -26,11 +27,10 @@ const useStyles = makeStyles(() => ({
 
 const TotalProfit = ({ className, ...rest }) => {
     const classes = useStyles();
-    const staticUrl = "http://localhost:5000/api/order/";
     const [totalProfits, setTotalProfits] = useState(0.0);
     useEffect (() => {
     //the request to the API to get number of customers
-        fetch(staticUrl+"orders", {
+        fetch(staticUrl+"order/orders", {
             method: "GET",
             headers: {
                 "Accept": "application/json",
