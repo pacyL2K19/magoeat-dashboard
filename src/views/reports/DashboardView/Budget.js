@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const Budget = ({ className, ...rest }) => {
     const classes = useStyles();
     const [ amount, setAmount ] = useState(0.0);
-    const [isLoading, setIsloading] = useState(false);
+    const [isLoading, setIsloading] = useState(true);
     const [ gains, setGains ] = useState(0.0); // to retrieve from database
     useEffect(() => {
         setIsloading(false);
@@ -53,7 +53,7 @@ const Budget = ({ className, ...rest }) => {
             .then(resJson => {
                 if (!resJson.orders) {
                     setAmount(0.0);
-                    setIsloading(false);
+                    setIsloading(true);
                 } else {
                     let totProf = 0.0;
                     for (let order of resJson.orders) {

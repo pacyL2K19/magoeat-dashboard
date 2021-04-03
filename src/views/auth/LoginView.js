@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginView = () => {
+    const [isLoading, setIsloading] = useState(false);
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const values = {
@@ -54,7 +55,6 @@ const LoginView = () => {
         }
     };
     const loginApi = () => {
-    // console.log(values)
         fetch(staticUrl+"auth/login", {
             method: "POST",
             headers: {
