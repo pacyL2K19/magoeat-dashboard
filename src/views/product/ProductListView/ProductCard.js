@@ -14,7 +14,7 @@ import {
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import GetAppIcon from "@material-ui/icons/GetApp";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         display: "flex",
         flexDirection: "column"
@@ -32,18 +32,22 @@ const ProductCard = ({ className, product, ...rest }) => {
     const classes = useStyles();
 
     return (
-        <Card
-            className={clsx(classes.root, className)}
-            {...rest}
-        >
+        <Card className={clsx(classes.root, className)} {...rest}>
             <CardContent>
                 <Box
                     display="flex"
-                    flexDirection= 'column'
+                    flexDirection="column"
                     justifyContent="center"
                     mb={3}
                 >
-                    <h2 style={{textAlign: "center", fontFamily: "sans-serif"}}>{product.name}</h2>
+                    <h2
+                        style={{
+                            textAlign: "center",
+                            fontFamily: "sans-serif"
+                        }}
+                    >
+                        {product.name}
+                    </h2>
                     <img
                         src={product.media}
                         style={{
@@ -64,26 +68,15 @@ const ProductCard = ({ className, product, ...rest }) => {
                 >
                     {product.title}
                 </Typography>
-                <Typography
-                    align="center"
-                    color="textPrimary"
-                    variant="body1"
-                >
+                <Typography align="center" color="textPrimary" variant="body1">
                     {product.description}
                 </Typography>
             </CardContent>
             <Box flexGrow={1} />
             <Divider />
             <Box p={2}>
-                <Grid
-                    container
-                    justify="space-between"
-                    spacing={2}
-                >
-                    <Grid
-                        className={classes.statsItem}
-                        item
-                    >
+                <Grid container justify="space-between" spacing={2}>
+                    <Grid className={classes.statsItem} item>
                         <AccessTimeIcon
                             className={classes.statsIcon}
                             color="action"
@@ -96,10 +89,7 @@ const ProductCard = ({ className, product, ...rest }) => {
                             {product.createdAt}
                         </Typography>
                     </Grid>
-                    <Grid
-                        className={classes.statsItem}
-                        item
-                    >
+                    <Grid className={classes.statsItem} item>
                         <GetAppIcon
                             className={classes.statsIcon}
                             color="action"
@@ -109,9 +99,7 @@ const ProductCard = ({ className, product, ...rest }) => {
                             display="inline"
                             variant="body2"
                         >
-                            {product.totalOrders}
-                            {" "}
-              Orders
+                            {product.totalOrders} Orders
                         </Typography>
                     </Grid>
                 </Grid>
