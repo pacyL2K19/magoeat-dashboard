@@ -55,28 +55,32 @@ const LoginView = () => {
         }
     };
     const loginApi = () => {
-        fetch(staticUrl + "auth/login", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                phone: phone,
-                password: password
+        if (values.password !== "" && values.phone !== "") {
+            fetch(staticUrl + "auth/login", {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    phone: phone,
+                    password: password
+                })
             })
-        })
-            .then(res => res.json())
-            .then(resJson => {
-                if (resJson.success) {
-                    navigate("/app/dashboard", { replace: true });
-                } else {
-                    setErrorMessage(resJson.errorMessage);
-                }
-            })
-            .catch(err => {
-                setErrorMessage(err);
-            });
+                .then(res => res.json())
+                .then(resJson => {
+                    if (resJson.success) {
+                        navigate("/app/dashboard", { replace: true });
+                    } else {
+                        setErrorMessage(resJson.errorMessage);
+                    }
+                })
+                .catch(err => {
+                    setErrorMessage(err);
+                });
+        } else {
+            // 
+        }
     };
     return (
         <Page className={classes.root} title="Login">
@@ -90,7 +94,6 @@ const LoginView = () => {
                     <Formik
                         initialValues={values}
                         onSubmit={() => {
-                            // Call to the api
                             loginApi();
                         }}
                     >
@@ -179,6 +182,7 @@ const LoginView = () => {
                                         size="large"
                                         type="submit"
                                         variant="contained"
+                                        
                                     >
                                         Sign in now
                                     </Button>
@@ -200,8 +204,9 @@ const LoginView = () => {
                         )}
                     </Formik>
                 </Container>
-
-                {warningShow()}
+                {
+                    warningShow()
+                }
             </Box>
         </Page>
     );
