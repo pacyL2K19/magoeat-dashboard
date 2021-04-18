@@ -1,12 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-import {
-    Box,
-    Container,
-    Grid,
-    makeStyles
-} from "@material-ui/core";
+import { Box, Container, Grid, makeStyles } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import Page from "../../../components/Page";
 import Toolbar from "./Toolbar";
@@ -14,7 +9,7 @@ import ProductCard from "./ProductCard";
 import { staticUrl } from "../../../config";
 // import data from '../../../helpers/data';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: theme.palette.background.dark,
         minHeight: "100%",
@@ -30,10 +25,10 @@ const ProductList = () => {
     const classes = useStyles();
     const [products, setProducts] = useState([]);
     useEffect(() => {
-        fetch(staticUrl+"restaurants", {
+        fetch(staticUrl + "restaurants", {
             method: "GET",
             headers: {
-                "Accept": "application/json",
+                Accept: "application/json",
                 "Content-type": "application/json"
             }
         })
@@ -49,7 +44,7 @@ const ProductList = () => {
                             media: restau.imgUrl,
                             description: restau.description,
                             averageRate: restau.averageRating,
-                            createdAt: restau.opensAt+" - "+restau.closeAt,
+                            createdAt: restau.opensAt + " - " + restau.closeAt
                             // updatedAt: moment().subtract(9, 'hours')
                         };
                         latestRest.push(restToAdd);
@@ -64,25 +59,13 @@ const ProductList = () => {
             });
     }, []);
     return (
-        <Page
-            className={classes.root}
-            title="Products"
-        >
+        <Page className={classes.root} title="Products">
             <Container maxWidth={false}>
                 <Toolbar />
                 <Box mt={3}>
-                    <Grid
-                        container
-                        spacing={3}
-                    >
-                        {products.map((product) => (
-                            <Grid
-                                item
-                                key={product.id}
-                                lg={4}
-                                md={6}
-                                xs={12}
-                            >
+                    <Grid container spacing={3}>
+                        {products.map(product => (
+                            <Grid item key={product.id} lg={4} md={6} xs={12}>
                                 <ProductCard
                                     className={classes.productCard}
                                     product={product}
@@ -91,16 +74,8 @@ const ProductList = () => {
                         ))}
                     </Grid>
                 </Box>
-                <Box
-                    mt={3}
-                    display="flex"
-                    justifyContent="center"
-                >
-                    <Pagination
-                        color="primary"
-                        count={3}
-                        size="small"
-                    />
+                <Box mt={3} display="flex" justifyContent="center">
+                    <Pagination color="primary" count={3} size="small" />
                 </Box>
             </Container>
         </Page>

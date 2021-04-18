@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { Dropdown } from "semantic-ui-react";
@@ -20,11 +20,11 @@ import { Search as SearchIcon } from "react-feather";
 import { staticUrl } from "../../../config";
 import Buttons from "./Buttons";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {},
     "& .MuiTextField-root": {
         margin: theme.spacing(1),
-        width: "25ch",
+        width: "25ch"
     },
     importButton: {
         marginRight: theme.spacing(1)
@@ -35,19 +35,19 @@ const useStyles = makeStyles((theme) => ({
     modal: {
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "center"
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
         border: "2px solid #000",
         boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
+        padding: theme.spacing(2, 4, 3)
     },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width: 200,
-    },
+        width: 200
+    }
 }));
 
 const Toolbar = ({ className, ...rest }) => {
@@ -62,12 +62,12 @@ const Toolbar = ({ className, ...rest }) => {
     const [openTime, setOpenTime] = React.useState("07:30");
     const [closeTime, setCloseTime] = React.useState("20:30");
     // dropdown reseter
-  
+
     useEffect(() => {
-        fetch(staticUrl+"auth/owner", {
+        fetch(staticUrl + "auth/owner", {
             method: "GET",
             headers: {
-                "Accept": "application/json",
+                Accept: "application/json",
                 "Content-type": "application/json"
             }
         })
@@ -78,7 +78,7 @@ const Toolbar = ({ className, ...rest }) => {
                     let owx = {
                         key: ow._id,
                         text: ow.username,
-                        value: ow._id,
+                        value: ow._id
                     };
                     ownersL.push(owx);
                 });
@@ -92,10 +92,10 @@ const Toolbar = ({ className, ...rest }) => {
         setOpen(false);
     };
 
-    const handleChangeName = (event) => {
+    const handleChangeName = event => {
         setRestaurantName(event.target.value);
     };
-    const handleDropdownChange = (e, {value}) => {
+    const handleDropdownChange = (e, { value }) => {
         setOwner(value);
     };
     const handleSave = () => {
@@ -115,26 +115,16 @@ const Toolbar = ({ className, ...rest }) => {
         closeAt: closeTime.toString()
     };
     return (
-        <div
-            className={clsx(classes.root, className)}
-            {...rest}
-        >
-            <Box
-                display="flex"
-                justifyContent="flex-end"
-            >
-                <Button className={classes.importButton}>
-          Import
-                </Button>
-                <Button className={classes.exportButton}>
-          Export
-                </Button>
+        <div className={clsx(classes.root, className)} {...rest}>
+            <Box display="flex" justifyContent="flex-end">
+                <Button className={classes.importButton}>Import</Button>
+                <Button className={classes.exportButton}>Export</Button>
                 <Button
                     color="primary"
                     variant="contained"
-                    onClick = {() => setOpen(true)}
+                    onClick={() => setOpen(true)}
                 >
-          Add product
+                    Add product
                 </Button>
             </Box>
             <Box mt={3}>
@@ -176,12 +166,21 @@ const Toolbar = ({ className, ...rest }) => {
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
-                    timeout: 500,
+                    timeout: 500
                 }}
             >
-                <Fade in={open} style={{backgroundColor: "white", padding: 30}}>
-                    <form className={classes.root} noValidate autoComplete="off">
-                        <h2 style={{fontFamily: "sans-serif"}}>Add new Restaurant</h2>
+                <Fade
+                    in={open}
+                    style={{ backgroundColor: "white", padding: 30 }}
+                >
+                    <form
+                        className={classes.root}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <h2 style={{ fontFamily: "sans-serif" }}>
+                            Add new Restaurant
+                        </h2>
                         <div>
                             <TextField
                                 id="outlined-multiline-flexible"
@@ -190,14 +189,14 @@ const Toolbar = ({ className, ...rest }) => {
                                 value={restaurantName}
                                 onChange={handleChangeName}
                                 variant="outlined"
-                                margin='normal'
-                                size='small'
+                                margin="normal"
+                                size="small"
                                 fullWidth
                             />
-                            <Dropdown 
-                                placeholder='Select the owner' 
+                            <Dropdown
+                                placeholder="Select the owner"
                                 search
-                                onChange = {handleDropdownChange}
+                                onChange={handleDropdownChange}
                                 selection
                                 value={owner}
                                 options={owners}
@@ -207,14 +206,23 @@ const Toolbar = ({ className, ...rest }) => {
                                 label="Image URL"
                                 rowsMax={4}
                                 value={imgUrl}
-                                margin='normal'
-                                onChange={(event) => {setImgUrl(event.target.value);}}
+                                margin="normal"
+                                onChange={event => {
+                                    setImgUrl(event.target.value);
+                                }}
                                 variant="outlined"
-                                margin='normal'
-                                size='small'
+                                margin="normal"
+                                size="small"
                                 fullWidth
                             />
-                            <div style={{margin: 10, display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                            <div
+                                style={{
+                                    margin: 10,
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "space-between"
+                                }}
+                            >
                                 <TextField
                                     id="time"
                                     label="Opens at"
@@ -222,12 +230,14 @@ const Toolbar = ({ className, ...rest }) => {
                                     defaultValue="07:30"
                                     className={classes.textField}
                                     InputLabelProps={{
-                                        shrink: true,
+                                        shrink: true
                                     }}
                                     inputProps={{
-                                        step: 300, // 5 min
+                                        step: 300 // 5 min
                                     }}
-                                    onChange = {(e) => {setOpenTime(e.target.value);}}
+                                    onChange={e => {
+                                        setOpenTime(e.target.value);
+                                    }}
                                     value={openTime}
                                 />
                                 <TextField
@@ -237,12 +247,14 @@ const Toolbar = ({ className, ...rest }) => {
                                     defaultValue="20:30"
                                     className={classes.textField}
                                     InputLabelProps={{
-                                        shrink: true,
+                                        shrink: true
                                     }}
                                     inputProps={{
-                                        step: 300, // 5 min
+                                        step: 300 // 5 min
                                     }}
-                                    onChange = {(e) => {setCloseTime(e.target.value);}}
+                                    onChange={e => {
+                                        setCloseTime(e.target.value);
+                                    }}
                                     value={closeTime}
                                 />
                             </div>
@@ -252,24 +264,30 @@ const Toolbar = ({ className, ...rest }) => {
                                 placeholder="Put address"
                                 multiline
                                 variant="outlined"
-                                size='small'
+                                size="small"
                                 fullWidth
                                 value={address}
-                                onChange={(e) => {setAddress(e.target.value);}}
+                                onChange={e => {
+                                    setAddress(e.target.value);
+                                }}
                             />
                             <TextField
                                 id="outlined-multiline-static"
                                 label="Add description"
                                 multiline
                                 rows={6}
-                                margin='normal'
+                                margin="normal"
                                 defaultValue=""
                                 variant="outlined"
                                 value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                onChange={e => setDescription(e.target.value)}
                             />
                         </div>
-                        <Buttons restaurant={restaurant} onCancel={handleClose} onSave={handleSave} />
+                        <Buttons
+                            restaurant={restaurant}
+                            onCancel={handleClose}
+                            onSave={handleSave}
+                        />
                     </form>
                 </Fade>
             </Modal>

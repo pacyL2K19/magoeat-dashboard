@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core";
 import Page from "../../components/Page";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: theme.palette.background.dark,
         height: "100%",
@@ -30,10 +30,7 @@ const RegisterView = () => {
     const navigate = useNavigate();
 
     return (
-        <Page
-            className={classes.root}
-            title="Register"
-        >
+        <Page className={classes.root} title="Register">
             <Box
                 display="flex"
                 flexDirection="column"
@@ -49,15 +46,25 @@ const RegisterView = () => {
                             password: "",
                             policy: false
                         }}
-                        validationSchema={
-                            Yup.object().shape({
-                                email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
-                                firstName: Yup.string().max(255).required("First name is required"),
-                                lastName: Yup.string().max(255).required("Last name is required"),
-                                password: Yup.string().max(255).required("password is required"),
-                                policy: Yup.boolean().oneOf([true], "This field must be checked")
-                            })
-                        }
+                        validationSchema={Yup.object().shape({
+                            email: Yup.string()
+                                .email("Must be a valid email")
+                                .max(255)
+                                .required("Email is required"),
+                            firstName: Yup.string()
+                                .max(255)
+                                .required("First name is required"),
+                            lastName: Yup.string()
+                                .max(255)
+                                .required("Last name is required"),
+                            password: Yup.string()
+                                .max(255)
+                                .required("password is required"),
+                            policy: Yup.boolean().oneOf(
+                                [true],
+                                "This field must be checked"
+                            )
+                        })}
                         onSubmit={() => {
                             navigate("/app/dashboard", { replace: true });
                         }}
@@ -77,20 +84,24 @@ const RegisterView = () => {
                                         color="textPrimary"
                                         variant="h2"
                                     >
-                    Create new account
+                                        Create new account
                                     </Typography>
                                     <Typography
                                         color="textSecondary"
                                         gutterBottom
                                         variant="body2"
                                     >
-                    Use your email to create new account
+                                        Use your email to create new account
                                     </Typography>
                                 </Box>
                                 <TextField
-                                    error={Boolean(touched.firstName && errors.firstName)}
+                                    error={Boolean(
+                                        touched.firstName && errors.firstName
+                                    )}
                                     fullWidth
-                                    helperText={touched.firstName && errors.firstName}
+                                    helperText={
+                                        touched.firstName && errors.firstName
+                                    }
                                     label="First name"
                                     margin="normal"
                                     name="firstName"
@@ -100,9 +111,13 @@ const RegisterView = () => {
                                     variant="outlined"
                                 />
                                 <TextField
-                                    error={Boolean(touched.lastName && errors.lastName)}
+                                    error={Boolean(
+                                        touched.lastName && errors.lastName
+                                    )}
                                     fullWidth
-                                    helperText={touched.lastName && errors.lastName}
+                                    helperText={
+                                        touched.lastName && errors.lastName
+                                    }
                                     label="Last name"
                                     margin="normal"
                                     name="lastName"
@@ -112,7 +127,9 @@ const RegisterView = () => {
                                     variant="outlined"
                                 />
                                 <TextField
-                                    error={Boolean(touched.email && errors.email)}
+                                    error={Boolean(
+                                        touched.email && errors.email
+                                    )}
                                     fullWidth
                                     helperText={touched.email && errors.email}
                                     label="Email Address"
@@ -125,9 +142,13 @@ const RegisterView = () => {
                                     variant="outlined"
                                 />
                                 <TextField
-                                    error={Boolean(touched.password && errors.password)}
+                                    error={Boolean(
+                                        touched.password && errors.password
+                                    )}
                                     fullWidth
-                                    helperText={touched.password && errors.password}
+                                    helperText={
+                                        touched.password && errors.password
+                                    }
                                     label="Password"
                                     margin="normal"
                                     name="password"
@@ -137,11 +158,7 @@ const RegisterView = () => {
                                     value={values.password}
                                     variant="outlined"
                                 />
-                                <Box
-                                    alignItems="center"
-                                    display="flex"
-                                    ml={-1}
-                                >
+                                <Box alignItems="center" display="flex" ml={-1}>
                                     <Checkbox
                                         checked={values.policy}
                                         name="policy"
@@ -151,8 +168,7 @@ const RegisterView = () => {
                                         color="textSecondary"
                                         variant="body1"
                                     >
-                    I have read the
-                                        {" "}
+                                        I have read the{" "}
                                         <Link
                                             color="primary"
                                             component={RouterLink}
@@ -160,7 +176,7 @@ const RegisterView = () => {
                                             underline="always"
                                             variant="h6"
                                         >
-                      Terms and Conditions
+                                            Terms and Conditions
                                         </Link>
                                     </Typography>
                                 </Box>
@@ -178,21 +194,20 @@ const RegisterView = () => {
                                         type="submit"
                                         variant="contained"
                                     >
-                    Sign up now
+                                        Sign up now
                                     </Button>
                                 </Box>
                                 <Typography
                                     color="textSecondary"
                                     variant="body1"
                                 >
-                  Have an account?
-                                    {" "}
+                                    Have an account?{" "}
                                     <Link
                                         component={RouterLink}
                                         to="/login"
                                         variant="h6"
                                     >
-                    Sign in
+                                        Sign in
                                     </Link>
                                 </Typography>
                             </form>

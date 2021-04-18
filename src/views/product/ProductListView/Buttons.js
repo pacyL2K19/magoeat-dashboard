@@ -3,13 +3,13 @@ import React from "react";
 import { Button } from "semantic-ui-react";
 import { staticUrl } from "../../../config";
 
-const Buttons = ({restaurant, onSave, onCancel}) => {
+const Buttons = ({ restaurant, onSave, onCancel }) => {
     const createRest = () => {
-        fetch(staticUrl+"restaurants/create", {
+        fetch(staticUrl + "restaurants/create", {
             method: "POST",
             headers: {
-                "Accept": "application/json",
-                "Content-type": "application/json",
+                Accept: "application/json",
+                "Content-type": "application/json"
             },
             body: JSON.stringify({
                 label: restaurant.label,
@@ -28,7 +28,7 @@ const Buttons = ({restaurant, onSave, onCancel}) => {
                     alert("Successfully saved");
                     onCancel();
                 } else {
-                    alert(resJson.message || resJson.errorMessage );
+                    alert(resJson.message || resJson.errorMessage);
                     alert(resJson.error);
                 }
             })
@@ -40,7 +40,9 @@ const Buttons = ({restaurant, onSave, onCancel}) => {
         <Button.Group>
             <Button onClick={onCancel}>Cancel</Button>
             <Button.Or />
-            <Button positive onClick={createRest}>Save</Button>
+            <Button positive onClick={createRest}>
+                Save
+            </Button>
         </Button.Group>
     );
 };
